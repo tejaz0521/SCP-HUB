@@ -12,9 +12,9 @@ local RunService = game:GetService("RunService")
 -- ══════════════════════════════════════
 -- 🔗 YOUR LINKS
 -- ══════════════════════════════════════
-local WHITELIST_URL   = "https://pastebin.com/raw/REPLACE_WITH_WHITELIST_PASTEBIN"
+local WHITELIST_URL   = "https://pastebin.com/raw/RULnktcp"
 local SECRET_PAID_URL = "https://pastebin.com/raw/kyMmrcQN"
-local FREE_ML_URL     = "https://raw.githubusercontent.com/tejaz0521/Scrip_scp/refs/heads/main/SCP_HUB_V5.lua"
+local FREE_ML_URL     = "https://raw.githubusercontent.com/tejaz0521/Scrip_scp/refs/heads/main/obfuscated_script-1772178325138.lua.txt"
 local RIVALS_URL      = "https://raw.githubusercontent.com/tejaz0521/SCP-HUB/refs/heads/main/SCP_RIVALS.lua"
 local RACECLICKER_URL = "https://raw.githubusercontent.com/tejaz0521/SCP-HUB/refs/heads/main/SCP_RACECLICKER.lua"
 
@@ -48,8 +48,8 @@ gui.Parent = LocalPlayer:WaitForChild("PlayerGui")
 
 -- Main window
 local win = Instance.new("Frame")
-win.Size = UDim2.new(0,310,0,530)
-win.Position = UDim2.new(0.5,-155,0.5,-265)
+win.Size = UDim2.new(0,310,0,560)
+win.Position = UDim2.new(0.5,-155,0.5,-280)
 win.BackgroundColor3 = Color3.fromRGB(7,7,10)
 win.BorderSizePixel = 0
 win.Parent = gui
@@ -151,12 +151,14 @@ sectionLbl.Parent = win
 
 -- Scroll frame for buttons
 local scroll = Instance.new("ScrollingFrame")
-scroll.Size = UDim2.new(1,-20,0,290)
+scroll.Size = UDim2.new(1,-20,0,310)
 scroll.Position = UDim2.new(0,10,0,198)
 scroll.BackgroundTransparency = 1
 scroll.BorderSizePixel = 0
-scroll.ScrollBarThickness = 3
+scroll.ScrollBarThickness = 4
 scroll.ScrollBarImageColor3 = Color3.fromRGB(220,0,0)
+scroll.ElasticBehavior = Enum.ElasticBehavior.Always
+scroll.ScrollingEnabled = true
 scroll.CanvasSize = UDim2.new(0,0,0,0)
 scroll.Parent = win
 
@@ -453,7 +455,7 @@ makeButton("🏎️","Race Clicker","🔑 KEY REQUIRED",
 win.Position = UDim2.new(0.5,-155,1.5,0)
 win.BackgroundTransparency = 1
 TweenService:Create(win, TweenInfo.new(0.6, Enum.EasingStyle.Back, Enum.EasingDirection.Out), {
-    Position = UDim2.new(0.5,-155,0.5,-265),
+    Position = UDim2.new(0.5,-155,0.5,-280),
     BackgroundTransparency = 0
 }):Play()
 
