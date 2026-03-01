@@ -12,8 +12,8 @@ local TweenService = game:GetService("TweenService")
 local WHITELIST_URL    = "https://pastebin.com/raw/RULnktcp"
 local SECRET_PAID_URL  = "https://pastebin.com/raw/727r3bN1"
 local FREE_ML_URL      = "https://raw.githubusercontent.com/tejaz0521/Scrip_scp/refs/heads/main/obfuscated_script-1772178325138.lua.txt"
-local RIVALS_URL       = "https://raw.githubusercontent.com/tejaz0521/SCP-HUB/refs/heads/main/obfuscated_script-1772351303809.lua.txt"
-local RACECLICKER_URL  = "https://raw.githubusercontent.com/tejaz0521/SCP-HUB/refs/heads/main/obfuscated_script-1772351303809.lua.txt"))()"
+local RIVALS_URL       = "https://raw.githubusercontent.com/tejaz0521/SCP-HUB/refs/heads/main/SCP_RIVALS.lua.txt"
+local RACECLICKER_URL  = "https://raw.githubusercontent.com/tejaz0521/SCP-HUB/refs/heads/main/SCP_RACECLICKER.lua.txt"
 
 repeat task.wait() until LocalPlayer and LocalPlayer.Character
 
