@@ -16,7 +16,7 @@ local StarterGui = game:GetService("StarterGui")
 -- ══════════════════════════════════════
 
 -- Your whitelist pastebin (usernames one per line)
-local WHITELIST_URL = "https://pastebin.com/raw/REPLACE_WITH_WHITELIST_PASTEBIN"
+local WHITELIST_URL = "https://pastebin.com/raw/RULnktcp"
 
 -- Your SECRET paid script pastebin (obfuscated script goes here)
 -- NEVER share this link with anyone!
