@@ -14,7 +14,7 @@ local RunService = game:GetService("RunService")
 -- ══════════════════════════════════════
 local WHITELIST_URL   = "https://pastebin.com/raw/RULnktcp"
 local SECRET_PAID_URL = "https://pastebin.com/raw/kyMmrcQN"
-local FREE_ML_URL     = "https://raw.githubusercontent.com/tejaz0521/Scrip_scp/refs/heads/main/SCP_PUBLIC_FIRE.lua"
+local FREE_ML_URL     = "https://raw.githubusercontent.com/tejaz0521/SCP-HUB/refs/heads/main/SCP_PUBLIC_FIRE.lua"
 local RIVALS_URL      = "https://raw.githubusercontent.com/tejaz0521/SCP-HUB/refs/heads/main/SCP_RIVALS.lua"
 local RACECLICKER_URL = "https://raw.githubusercontent.com/tejaz0521/SCP-HUB/refs/heads/main/SCP_RACECLICKER.lua"
 
