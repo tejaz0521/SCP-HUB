@@ -1,0 +1,310 @@
+-- ══════════════════════════════════════════════════
+--            SCP HUB - RACE CLICKER
+--               Made by TEJAZ
+--           discord.gg/nDSy4jdVDc
+-- ══════════════════════════════════════════════════
+
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
+local VIM = game:GetService("VirtualInputManager")
+local LocalPlayer = Players.LocalPlayer
+local StarterGui = game:GetService("StarterGui")
+
+repeat task.wait() until LocalPlayer and LocalPlayer.Character
+
+local function notify(title, text, dur)
+    StarterGui:SetCore("SendNotification", {Title = title, Text = text, Duration = dur or 3})
+end
+
+local function formatNumber(n)
+    n = tonumber(n) or 0
+    if n >= 1e9 then return string.format("%.2fB", n/1e9)
+    elseif n >= 1e6 then return string.format("%.2fM", n/1e6)
+    elseif n >= 1e3 then return string.format("%.2fK", n/1e3)
+    else return tostring(math.floor(n)) end
+end
+
+-- Load UI Library
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/Moha-space/elerium-v2-ui-library/refs/heads/main/Library", true))()
+
+local displayName = LocalPlayer.DisplayName or LocalPlayer.Name
+
+local window = library:AddWindow("SCP HUB | Race Clicker | " .. displayName, {
+    main_color = Color3.fromRGB(255, 140, 0),
+    min_size = Vector2.new(600, 650),
+    can_resize = false,
+})
+
+-- ══════════════════════════════════════
+-- INFO TAB
+-- ══════════════════════════════════════
+local infoTab = window:AddTab("INFO")
+infoTab:AddLabel("[ SCP HUB - RACE CLICKER ]")
+local rainbow = infoTab:AddLabel("Made by TEJAZ")
+task.spawn(function()
+    while true do
+        rainbow.TextColor3 = Color3.fromHSV(tick() * 0.2 % 1, 0.9, 1)
+        task.wait(0.02)
+    end
+end)
+infoTab:AddLabel("══════════════════════════════════════")
+infoTab:AddButton("Join Discord - discord.gg/nDSy4jdVDc", function()
+    setclipboard("https://discord.gg/nDSy4jdVDc")
+    notify("SCP HUB", "Discord copied!", 3)
+end)
+
+-- ══════════════════════════════════════
+-- AUTO CLICK TAB
+-- ══════════════════════════════════════
+local clickTab = window:AddTab("AUTO CLICK")
+clickTab:AddLabel("[ AUTO CLICKER ]")
+clickTab:AddLabel("══════════════════════════════════════")
+
+local clickSpeed = 100
+local clicksPerSec = clickTab:AddLabel("Clicks/sec: 0")
+local totalClicks = 0
+local sessionStart = tick()
+
+clickTab:AddTextBox("Click Speed (per second, default 100)", function(val)
+    clickSpeed = math.clamp(tonumber(val) or 100, 1, 1000)
+end, {clear=false, placeholder="100"})
+
+-- Auto Clicker - clicks the race button
+clickTab:AddSwitch("Auto Clicker (FASTEST)", function(on)
+    getgenv().autoClick = on
+    totalClicks = 0
+    sessionStart = tick()
+    if on then
+        notify("SCP HUB", "Auto Clicker started! Speed: "..clickSpeed.."/sec!", 3)
+        spawn(function()
+            while getgenv().autoClick do
+                pcall(function()
+                    -- Fire the click event directly
+                    local clickEvent = ReplicatedStorage:FindFirstChild("ClickEvent")
+                        or ReplicatedStorage:FindFirstChild("click")
+                        or ReplicatedStorage:FindFirstChild("Click")
+                    if clickEvent then
+                        for i = 1, clickSpeed do
+                            clickEvent:FireServer()
+                            totalClicks = totalClicks + 1
+                        end
+                    else
+                        -- Try mouse click simulation
+                        for i = 1, math.floor(clickSpeed / 10) do
+                            VIM:SendMouseButtonEvent(0, 0, 0, true, game, 1)
+                            VIM:SendMouseButtonEvent(0, 0, 0, false, game, 1)
+                            totalClicks = totalClicks + 1
+                        end
+                    end
+                    -- Update label
+                    local elapsed = tick() - sessionStart
+                    if elapsed > 0 then
+                        clicksPerSec.Text = "Total Clicks: "..formatNumber(totalClicks).." | Rate: "..formatNumber(math.floor(totalClicks/elapsed)).."/sec"
+                    end
+                end)
+                task.wait(1)
+            end
+        end)
+    end
+end)
+
+-- Spam Click (fastest possible)
+clickTab:AddSwitch("Spam Click (MAX SPEED)", function(on)
+    getgenv().spamClick = on
+    if on then
+        notify("SCP HUB", "Spam Click MAX SPEED started!", 3)
+        spawn(function()
+            while getgenv().spamClick do
+                pcall(function()
+                    local clickEvent = ReplicatedStorage:FindFirstChild("ClickEvent")
+                        or ReplicatedStorage:FindFirstChild("click")
+                        or ReplicatedStorage:FindFirstChild("Click")
+                    for i = 1, 500 do
+                        if clickEvent then
+                            clickEvent:FireServer()
+                        end
+                        task.spawn(function()
+                            VIM:SendMouseButtonEvent(0, 0, 0, true, game, 1)
+                            VIM:SendMouseButtonEvent(0, 0, 0, false, game, 1)
+                        end)
+                    end
+                end)
+                task.wait(0)
+            end
+        end)
+    end
+end)
+
+clickTab:AddLabel("══════════════════════════════════════")
+clickTab:AddLabel("CLICK STATS:")
+clickTab:AddButton("Reset Click Counter", function()
+    totalClicks = 0
+    sessionStart = tick()
+    clicksPerSec.Text = "Total Clicks: 0 | Rate: 0/sec"
+end)
+
+-- ══════════════════════════════════════
+-- RACE TAB
+-- ══════════════════════════════════════
+local raceTab = window:AddTab("RACE")
+raceTab:AddLabel("[ RACE FEATURES ]")
+raceTab:AddLabel("══════════════════════════════════════")
+
+-- Speed boost during race
+raceTab:AddSwitch("Speed Boost (during race)", function(on)
+    getgenv().raceSpeed = on
+    spawn(function()
+        while getgenv().raceSpeed do
+            pcall(function()
+                if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid") then
+                    LocalPlayer.Character.Humanoid.WalkSpeed = on and 100 or 16
+                end
+            end)
+            task.wait(0.1)
+        end
+        if LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid") then
+            LocalPlayer.Character.Humanoid.WalkSpeed = 16
+        end
+    end)
+end)
+
+-- Auto Race (auto joins and finishes races)
+raceTab:AddSwitch("Auto Race (auto join + finish)", function(on)
+    getgenv().autoRace = on
+    if on then
+        notify("SCP HUB", "Auto Race started!", 3)
+        spawn(function()
+            while getgenv().autoRace do
+                pcall(function()
+                    -- Try to find and fire race events
+                    local joinRace = ReplicatedStorage:FindFirstChild("JoinRace")
+                        or ReplicatedStorage:FindFirstChild("joinRace")
+                        or ReplicatedStorage:FindFirstChild("StartRace")
+                    if joinRace then joinRace:FireServer() end
+
+                    -- Teleport to finish line if possible
+                    local finish = workspace:FindFirstChild("FinishLine")
+                        or workspace:FindFirstChild("Finish")
+                        or workspace:FindFirstChild("End")
+                    if finish and LocalPlayer.Character then
+                        LocalPlayer.Character:MoveTo(finish.Position)
+                    end
+                end)
+                task.wait(3)
+            end
+        end)
+    end
+end)
+
+-- Infinite Jump (useful for race obstacles)
+raceTab:AddSwitch("Infinite Jump", function(on)
+    getgenv().infJump = on
+    if on then
+        game:GetService("UserInputService").JumpRequest:Connect(function()
+            if getgenv().infJump and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("Humanoid") then
+                LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+            end
+        end)
+    end
+end)
+
+-- Noclip
+raceTab:AddSwitch("Noclip (go through walls)", function(on)
+    getgenv().noclipRC = on
+    if on then
+        RunService.Stepped:Connect(function()
+            if getgenv().noclipRC and LocalPlayer.Character then
+                for _, part in pairs(LocalPlayer.Character:GetDescendants()) do
+                    if part:IsA("BasePart") then part.CanCollide = false end
+                end
+            end
+        end)
+    end
+end)
+
+-- ══════════════════════════════════════
+-- PETS TAB
+-- ══════════════════════════════════════
+local petsTab = window:AddTab("PETS")
+petsTab:AddLabel("[ PETS ]")
+petsTab:AddLabel("══════════════════════════════════════")
+
+petsTab:AddSwitch("Auto Open Eggs (fastest)", function(on)
+    getgenv().autoEggs = on
+    if on then
+        notify("SCP HUB", "Auto Open Eggs started!", 3)
+        spawn(function()
+            while getgenv().autoEggs do
+                pcall(function()
+                    -- Find egg open event
+                    local eggEvent = ReplicatedStorage:FindFirstChild("OpenEgg")
+                        or ReplicatedStorage:FindFirstChild("openEgg")
+                        or ReplicatedStorage:FindFirstChild("HatchEgg")
+                    -- Find eggs
+                    local eggs = LocalPlayer:FindFirstChild("Eggs") or LocalPlayer:FindFirstChild("Inventory")
+                    if eggEvent then
+                        if eggs then
+                            for _, egg in pairs(eggs:GetChildren()) do
+                                eggEvent:FireServer(egg)
+                                task.wait(0.1)
+                            end
+                        else
+                            eggEvent:FireServer()
+                        end
+                    end
+                end)
+                task.wait(1)
+            end
+        end)
+    end
+end)
+
+petsTab:AddSwitch("Auto Equip Best Pets", function(on)
+    getgenv().autoEquipPets = on
+    if on then
+        spawn(function()
+            while getgenv().autoEquipPets do
+                pcall(function()
+                    local equipEvent = ReplicatedStorage:FindFirstChild("EquipPet")
+                        or ReplicatedStorage:FindFirstChild("equipPet")
+                    local petsFolder = LocalPlayer:FindFirstChild("Pets")
+                        or LocalPlayer:FindFirstChild("OwnedPets")
+                    if equipEvent and petsFolder then
+                        local count = 0
+                        for _, pet in pairs(petsFolder:GetChildren()) do
+                            if count >= 3 then break end
+                            equipEvent:FireServer(pet)
+                            count = count + 1
+                            task.wait(0.1)
+                        end
+                    end
+                end)
+                task.wait(10)
+            end
+        end)
+    end
+end)
+
+-- ══════════════════════════════════════
+-- SETTINGS TAB
+-- ══════════════════════════════════════
+local settingsTab = window:AddTab("SETTINGS")
+settingsTab:AddLabel("[ SETTINGS ]")
+settingsTab:AddLabel("══════════════════════════════════════")
+
+settingsTab:AddSwitch("Low Graphics (FPS Boost)", function(on)
+    game.Lighting.GlobalShadows = not on
+    game.Lighting.FogEnd = on and 9e9 or 100000
+    game.Lighting.Brightness = on and 0 or 2
+    settings().Rendering.QualityLevel = on and "Level01" or "Level21"
+end)
+
+settingsTab:AddButton("Anti AFK", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Moha-space/SPACE-HUB-/refs/heads/main/New%20anti%20afk%20v2"))()
+    notify("SCP HUB", "Anti AFK enabled!", 3)
+end)
+
+settingsTab:AddLabel("discord.gg/nDSy4jdVDc | Made by TEJAZ")
+
+notify("SCP HUB", "Race Clicker Hub loaded! Welcome "..displayName.."!", 4)
