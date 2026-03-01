@@ -9,7 +9,7 @@ local LocalPlayer = Players.LocalPlayer
 local StarterGui = game:GetService("StarterGui")
 local TweenService = game:GetService("TweenService")
 
-local WHITELIST_URL    = "https://pastebin.com/raw/REPLACE_WITH_WHITELIST_PASTEBIN"
+local WHITELIST_URL    = "https://pastebin.com/raw/RULnktcp"
 local SECRET_PAID_URL  = "https://pastebin.com/raw/727r3bN1"
 local FREE_ML_URL      = "https://raw.githubusercontent.com/tejaz0521/Scrip_scp/refs/heads/main/obfuscated_script-1772195851107.lua.txt"
 local RIVALS_URL       = "https://raw.githubusercontent.com/tejaz0521/SCP-HUB/refs/heads/main/SCP_RIVALS.lua"
