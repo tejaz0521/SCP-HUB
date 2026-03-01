@@ -20,7 +20,7 @@ local WHITELIST_URL = "https://pastebin.com/raw/RULnktcp"
 
 -- Your SECRET paid script pastebin (obfuscated script goes here)
 -- NEVER share this link with anyone!
-local SECRET_PAID_URL = "https://pastebin.com/raw/REPLACE_WITH_SECRET_PAID_PASTEBIN"
+local SECRET_PAID_URL = "https://pastebin.com/raw/727r3bN1"
 
 -- Your PUBLIC free script link
 local FREE_SCRIPT_URL = "https://raw.githubusercontent.com/tejaz0521/Scrip_scp/refs/heads/main/obfuscated_script-1772195851107.lua.txt"
