@@ -558,4 +558,46 @@ petsTab:AddSwitch("Auto Equip Best Pets", function(on)
     if on then
         spawn(function()
             while getgenv().autoEquipPets do
-                pcall(function)
+                pcall(function()
+                    local equipEvent = ReplicatedStorage:FindFirstChild("EquipPet")
+                        or ReplicatedStorage:FindFirstChild("equipPet")
+                    local petsFolder = LocalPlayer:FindFirstChild("Pets")
+                        or LocalPlayer:FindFirstChild("OwnedPets")
+                    if equipEvent and petsFolder then
+                        local count = 0
+                        for _, pet in pairs(petsFolder:GetChildren()) do
+                            if count >= 3 then break end
+                            equipEvent:FireServer(pet)
+                            count = count + 1
+                            task.wait(0.1)
+                        end
+                    end
+                end)
+                task.wait(10)
+            end
+        end)
+    end
+end)
+
+-- ══════════════════════════════════════
+-- SETTINGS TAB
+-- ══════════════════════════════════════
+local settingsTab = window:AddTab("SETTINGS")
+settingsTab:AddLabel("[ SETTINGS ]")
+settingsTab:AddLabel("══════════════════════════════════════")
+
+settingsTab:AddSwitch("Low Graphics (FPS Boost)", function(on)
+    game.Lighting.GlobalShadows = not on
+    game.Lighting.FogEnd = on and 9e9 or 100000
+    game.Lighting.Brightness = on and 0 or 2
+    settings().Rendering.QualityLevel = on and "Level01" or "Level21"
+end)
+
+settingsTab:AddButton("Anti AFK", function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Moha-space/SPACE-HUB-/refs/heads/main/New%20anti%20afk%20v2"))()
+    notify("SCP HUB", "Anti AFK enabled!", 3)
+end)
+
+settingsTab:AddLabel("discord.gg/nDSy4jdVDc | Made by TEJAZ")
+
+notify("SCP HUB", "Race Clicker Hub loaded! Welcome "..displayName.."!", 4)
