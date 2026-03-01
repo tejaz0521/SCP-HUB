@@ -13,7 +13,7 @@ local TweenService = game:GetService("TweenService")
 -- YOUR LINKS
 -- ══════════════════════════════════════
 
-local WHITELIST_URL = "https://pastebin.com/raw/REPLACE_WITH_WHITELIST_PASTEBIN"
+local WHITELIST_URL = "https://pastebin.com/raw/RULnktcp"
 local SECRET_PAID_URL = "https://pastebin.com/raw/727r3bN1"
 
 local GAME_SCRIPTS = {
