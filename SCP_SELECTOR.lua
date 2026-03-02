@@ -11,7 +11,7 @@ repeat task.wait() until LP and LP.Character
 -- ── LINKS ──────────────────────────────────────────
 local WHITELIST_URL   = "https://pastebin.com/raw/RULnktcp"
 local PAID_URL        = "https://pastebin.com/raw/kyMmrcQN"
-local FREE_URL        = "https://raw.githubusercontent.com/tejaz0521/Scrip_scp/refs/heads/main/SCP_HUB_V5.lua"
+local FREE_URL        = "https://raw.githubusercontent.com/tejaz0521/SCP-HUB/refs/heads/main/SCP_PUBLIC_V5.lua"
 local RIVALS_URL      = "https://raw.githubusercontent.com/tejaz0521/SCP-HUB/refs/heads/main/SCP_RIVALS.lua"
 local RACECLICKER_URL = "https://raw.githubusercontent.com/tejaz0521/SCP-HUB/refs/heads/main/SCP_RACECLICKER.lua"
 
