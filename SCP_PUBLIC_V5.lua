@@ -2,6 +2,33 @@
 -- Library: SilenceElerium by imhenne187
 
 local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/imhenne187/SilenceElerium/refs/heads/main/src/SilenceEleriumLibrary.luau", true))()
+
+-- SCP LOGO INJECTOR
+local function injectSCPLogo(wFrame)
+    pcall(function()
+        local bar=wFrame:FindFirstChild('Bar')
+        if not bar then return end
+        local tog=bar:FindFirstChild('Toggle')
+        if not tog then return end
+        tog.Image='rbxassetid://3926305904'
+        tog.ImageColor3=Color3.fromRGB(255,60,60)
+        tog.Size=UDim2.new(0,18,0,18)
+        local existing=bar:FindFirstChild('SCPLogo')
+        if existing then existing:Destroy() end
+        local lbl=Instance.new('TextLabel')
+        lbl.Name='SCPLogo'
+        lbl.Size=UDim2.new(0,32,0,14)
+        lbl.Position=UDim2.new(0,22,0,2)
+        lbl.BackgroundTransparency=1
+        lbl.Text='SCP'
+        lbl.TextColor3=Color3.fromRGB(255,80,80)
+        lbl.TextSize=11
+        lbl.Font=Enum.Font.FredokaOne
+        lbl.ZIndex=tog.ZIndex+1
+        lbl.Parent=bar
+    end)
+end
+
 local Players    = game:GetService("Players")
 local RS         = game:GetService("ReplicatedStorage")
 local RunSvc     = game:GetService("RunService")
@@ -57,45 +84,36 @@ local function checkKey(e)
     return false
 end
 
+-- KEY SYSTEM (required every execution)
 local keyPassed=false
-if isfolder and isfolder("SCP_HUB") and isfile and isfile("SCP_HUB/key.txt") then
-    local saved=readfile("SCP_HUB/key.txt"):match("^%s*(.-)%s*$")
-    if checkKey(saved) then keyPassed=true end
-end
-
-if not keyPassed then
-    local kLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/imhenne187/SilenceElerium/refs/heads/main/src/SilenceEleriumLibrary.luau", true))()
-    local kWin,_ = kLib:AddWindow("🔑 SCP HUB — Key System", {
-        main_color          = Color3.fromRGB(185,30,30),
-        title_bar           = {Color3.fromRGB(185,30,30), Color3.fromRGB(100,10,10)},
-        background          = {Color3.fromRGB(18,5,5)},
-        background_transparency = 0,
-        min_size            = Vector2.new(580,240),
-        toggle_key          = Enum.KeyCode.RightShift,
-        can_resize          = false,
-    })
-    local kt,_ = kWin:AddTab("🔑  Key")
-    kt:AddLabel("⚡ SCP HUB  |  Muscle Legends V5  |  Made by TEJAZ")
-    kt:AddLabel("🔑  Get your FREE key at:  discord.gg/nDSy4jdVDc")
-    local stLbl = kt:AddLabel("📋  Paste your key below then press Enter")
-    kt:AddTextBox("Paste key here then press Enter...", function(v)
-        if checkKey(v) then
-            stLbl.Text = "✅  Key accepted!  Loading SCP HUB..."
-            if makefolder then makefolder("SCP_HUB") end
-            if writefile then writefile("SCP_HUB/key.txt",v) end
-            keyPassed = true
-        else
-            stLbl.Text = "❌  Wrong key!  discord.gg/nDSy4jdVDc"
-        end
-    end,{clear=false})
-    kt:AddButton("💬  Copy Discord Link", function()
-        setclipboard("https://discord.gg/nDSy4jdVDc")
-        notify("SCP HUB","✅ Discord copied!",3)
-    end)
-    kt:Show()
-    repeat task.wait(0.5) until keyPassed
-    _:Destroy()
-end
+local kWin, kFrame = library:AddWindow("🔑 SCP HUB — Key System", {
+    main_color          = Color3.fromRGB(185,30,30),
+    title_bar           = {Color3.fromRGB(185,30,30), Color3.fromRGB(100,10,10)},
+    background          = {Color3.fromRGB(18,5,5)},
+    background_transparency = 0,
+    min_size            = Vector2.new(520,220),
+    toggle_key          = Enum.KeyCode.RightShift,
+    can_resize          = false,
+})
+local kt,_ = kWin:AddTab("🔑  Key")
+kt:AddLabel("⚡ SCP HUB  |  Muscle Legends V5  |  Made by TEJAZ")
+kt:AddLabel("🔑  Get your FREE key at:  discord.gg/nDSy4jdVDc")
+local stLbl = kt:AddLabel("📋  Paste your key below then press Enter")
+kt:AddTextBox("Paste key here then press Enter...", function(v)
+    if checkKey(v) then
+        stLbl.Text = "✅  Key accepted!  Loading SCP HUB..."
+        keyPassed = true
+    else
+        stLbl.Text = "❌  Wrong key!  discord.gg/nDSy4jdVDc"
+    end
+end,{clear=true})
+kt:AddButton("💬  Copy Discord Link", function()
+    setclipboard("https://discord.gg/nDSy4jdVDc")
+    notify("SCP HUB","✅ Discord copied!",3)
+end)
+kt:Show()
+repeat task.wait(0.5) until keyPassed
+kFrame:Destroy()
 
 -- ══════════════════════════════════════════
 --  MAIN WINDOW
@@ -105,12 +123,20 @@ local WIN_CFG = {
     title_bar           = {Color3.fromRGB(200,35,35), Color3.fromRGB(100,10,10)},
     background          = {Color3.fromRGB(18,5,5)},
     background_transparency = 0,
-    min_size            = Vector2.new(580,520),
+    min_size            = Vector2.new(520,460),
     toggle_key          = Enum.KeyCode.RightShift,
     can_resize          = true,
 }
 local win, winFrame = library:AddWindow("⚡ SCP HUB  |  Muscle Legends V5  |  TEJAZ", WIN_CFG)
+task.defer(function() injectSCPLogo(winFrame) end)
 
+-- Replace Silence logo with SCP skull icon
+pcall(function()
+    local bar=winFrame:FindFirstChild("Bar")
+    if bar then local tog=bar:FindFirstChild("Toggle")
+        if tog then tog.Image="rbxassetid://6031075931"; tog.ImageColor3=Color3.fromRGB(255,80,80) end
+    end
+end)
 -- ══════════════════════════════════════════
 --  TAB: INFO
 -- ══════════════════════════════════════════
