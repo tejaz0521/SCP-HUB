@@ -49,25 +49,30 @@ selTab:AddLabel("━━━━━━━  ⚡ SCP HUB SELECTOR  ━━━━━━
 selTab:AddLabel("👑  Made by TEJAZ  |  💎  Version 4.5")
 selTab:AddLabel("💬  discord.gg/nDSy4jdVDc  |  🔄 RShift toggle")
 selTab:AddLabel("━━━━━━━  🏋️ MUSCLE LEGENDS  ━━━━━━━")
+local BASE = "https://raw.githubusercontent.com/tejaz0521/SCP-HUB/main/"
 selTab:AddButton("🆓  Load FREE Script (Muscle Legends)",function()
     notify("SCP","⚡ Loading FREE script...",3); task.wait(1)
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/tejaz0521/SCP-HUB/refs/heads/main/SCP_PUBLIC_V5.lua"))()
+    local ok,err=pcall(function() loadstring(game:HttpGet(BASE.."SCP_PUBLIC_V5.lua",true))() end)
+    if not ok then notify("SCP","❌ Error: "..tostring(err):sub(1,40),5) end
 end)
 selTab:AddButton("💎  Load PAID Script (Muscle Legends)",function()
     if isWhitelisted()then
         notify("SCP","💎 Loading PAID script...",3); task.wait(1)
-        loadstring(game:HttpGet("https://pastebin.com/raw/kyMmrcQN"))()
+        local ok,err=pcall(function() loadstring(game:HttpGet("https://pastebin.com/raw/kyMmrcQN",true))() end)
+        if not ok then notify("SCP","❌ Error: "..tostring(err):sub(1,40),5) end
     else notify("SCP","❌ Not whitelisted! Join discord",4) end
 end)
 selTab:AddLabel("━━━━━━━  ⚔️ RIVALS  ━━━━━━━")
 selTab:AddButton("⚔️  Load Rivals Script",function()
     notify("SCP","⚔️ Loading Rivals...",3); task.wait(1)
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/tejaz0521/SCP-HUB/refs/heads/main/SCP_RIVALS.lua"))()
+    local ok,err=pcall(function() loadstring(game:HttpGet(BASE.."SCP_RIVALS.lua",true))() end)
+    if not ok then notify("SCP","❌ Error: "..tostring(err):sub(1,40),5) end
 end)
 selTab:AddLabel("━━━━━━━  🏎️ RACE CLICKER  ━━━━━━━")
 selTab:AddButton("🏎️  Load Race Clicker Script",function()
     notify("SCP","🏎️ Loading Race Clicker...",3); task.wait(1)
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/tejaz0521/SCP-HUB/refs/heads/main/SCP_RACECLICKER.lua"))()
+    local ok,err=pcall(function() loadstring(game:HttpGet(BASE.."SCP_RACECLICKER.lua",true))() end)
+    if not ok then notify("SCP","❌ Error: "..tostring(err):sub(1,40),5) end
 end)
 selTab:AddLabel("━━━━━━━  💬 LINKS  ━━━━━━━")
 selTab:AddButton("💬  Copy Discord Link",function() setclipboard("https://discord.gg/nDSy4jdVDc"); notify("SCP","✅ Copied!",3) end)
