@@ -9,9 +9,9 @@ local function notify(t,m,d) pcall(function() SG:SetCore("SendNotification",{Tit
 
 local WHITELIST_URL = "https://pastebin.com/raw/RULnktcp"
 local PAID_URL      = "https://pastebin.com/raw/kyMmrcQN"
-local FREE_URL      = "https://raw.githubusercontent.com/tejaz0521/Scrip_scp/refs/heads/main/SCP_HUB_V5.lua"
-local RIVALS_URL    = "https://raw.githubusercontent.com/tejaz0521/SCP-HUB/refs/heads/main/SCP_RIVALS.lua"
-local RACE_URL      = "https://raw.githubusercontent.com/tejaz0521/SCP-HUB/refs/heads/main/SCP_RACECLICKER.lua"
+local FREE_URL      = "https://raw.githubusercontent.com/tejaz0521/SCP-HUB/refs/heads/main/SCP_PUBLIC_V5.lua%20(1).txt"
+local RIVALS_URL    = "https://raw.githubusercontent.com/tejaz0521/SCP-HUB/refs/heads/main/SCP_RIVALS.lua%20(3).txt"
+local RACE_URL      = "https://raw.githubusercontent.com/tejaz0521/SCP-HUB/refs/heads/main/SCP_RACECLICKER.lua%20(4).txt"
 
 local function getWhitelist()
     local ok,res = pcall(function() return game:HttpGet(WHITELIST_URL) end)
