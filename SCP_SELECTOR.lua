@@ -1,119 +1,76 @@
--- SCP HUB | SELECTOR | Made by TEJAZ
-local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
-local Players = game:GetService("Players")
-local SG = game:GetService("StarterGui")
-local LP = Players.LocalPlayer
-repeat task.wait() until LP and LP.Character
+-- ⚡ SCP HUB SELECTOR | Made by TEJAZ
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/imhenne187/SilenceElerium/refs/heads/main/src/SilenceEleriumLibrary.luau", true))()
 
-local function notify(t,m,d) pcall(function() SG:SetCore("SendNotification",{Title=t,Text=m,Duration=d or 3}) end) end
-
-local WHITELIST_URL = "https://pastebin.com/raw/RULnktcp"
-local PAID_URL      = "https://pastebin.com/raw/kyMmrcQN"
-local FREE_URL      = "https://raw.githubusercontent.com/tejaz0521/SCP-HUB/refs/heads/main/SCP_PUBLIC_V5.lua"
-local RIVALS_URL    = "https://raw.githubusercontent.com/tejaz0521/SCP-HUB/refs/heads/main/SCP_RIVALS.lua"
-local RACE_URL      = "https://raw.githubusercontent.com/tejaz0521/SCP-HUB/refs/heads/main/SCP_RACECLICKER.lua"
-
-local function getWhitelist()
-    local ok,res = pcall(function() return game:HttpGet(WHITELIST_URL) end)
-    if not ok then return {} end
-    local k = {}
-    for v in res:gmatch("[^\n]+") do
-        local t = v:match("^%s*(.-)%s*$")
-        if t ~= "" then table.insert(k,t) end
-    end
-    return k
+-- SCP LOGO INJECTOR
+local function injectSCPLogo(wFrame)
+    pcall(function()
+        local bar=wFrame:FindFirstChild('Bar')
+        if not bar then return end
+        local tog=bar:FindFirstChild('Toggle')
+        if not tog then return end
+        tog.Image='rbxassetid://3926305904'
+        tog.ImageColor3=Color3.fromRGB(255,60,60)
+        tog.Size=UDim2.new(0,18,0,18)
+        local existing=bar:FindFirstChild('SCPLogo')
+        if existing then existing:Destroy() end
+        local lbl=Instance.new('TextLabel')
+        lbl.Name='SCPLogo'
+        lbl.Size=UDim2.new(0,32,0,14)
+        lbl.Position=UDim2.new(0,22,0,2)
+        lbl.BackgroundTransparency=1
+        lbl.Text='SCP'
+        lbl.TextColor3=Color3.fromRGB(255,80,80)
+        lbl.TextSize=11
+        lbl.Font=Enum.Font.FredokaOne
+        lbl.ZIndex=tog.ZIndex+1
+        lbl.Parent=bar
+    end)
 end
 
+local Players=game:GetService("Players"); local SG=game:GetService("StarterGui")
+local LP=Players.LocalPlayer
+repeat task.wait() until LP
+local function notify(t,m,d) pcall(function() SG:SetCore("SendNotification",{Title=t,Text=m,Duration=d or 3}) end) end
+
+local WL_URL="https://pastebin.com/raw/RULnktcp"
 local function isWhitelisted()
-    local name = LP.Name
-    for _,v in pairs(getWhitelist()) do
-        if v == name then return true end
-    end
+    local ok,res=pcall(function()return game:HttpGet(WL_URL)end); if not ok then return false end
+    local name=LP.Name:lower()
+    for line in res:gmatch("[^\n]+")do if line:match("^%s*(.-)%s*$"):lower()==name then return true end end
     return false
 end
 
-local Window = Rayfield:CreateWindow({
-    Name = "⚡ SCP HUB | Game Selector",
-    Icon = 0,
-    LoadingTitle = "⚡ SCP HUB",
-    LoadingSubtitle = "👑 Made by TEJAZ | Select Your Game",
-    Theme = "Default",
-    DisableRayfieldPrompts = false,
-    DisableBuildWarnings = false,
-    ConfigurationSaving = { Enabled = false },
-    KeySystem = false,
-})
+local WIN_CFG={main_color=Color3.fromRGB(185,30,30),title_bar={Color3.fromRGB(200,35,35),Color3.fromRGB(100,10,10)},background={Color3.fromRGB(18,5,5)},background_transparency=0,min_size=Vector2.new(520,460),toggle_key=Enum.KeyCode.RightShift,can_resize=false}
+local win,winF=library:AddWindow("⚡ SCP HUB  |  Game Selector  |  TEJAZ",WIN_CFG)
+task.defer(function() injectSCPLogo(winF) end)
 
-local SelectTab = Window:CreateTab("🎮 Select Game", 4483362458)
-SelectTab:CreateSection("👋 Welcome, " .. LP.DisplayName)
-SelectTab:CreateParagraph({
-    Title = "⚡ SCP HUB",
-    Content = "👑 Made by TEJAZ\ndiscord.gg/nDSy4jdVDc\n\nSelect a game below to load the script!"
-})
+local selTab,_=win:AddTab("🎮  Select Game")
+selTab:AddLabel("━━━━━━━  ⚡ SCP HUB SELECTOR  ━━━━━━━")
+selTab:AddLabel("👑  Made by TEJAZ  |  💎  Version 4.5")
+selTab:AddLabel("💬  discord.gg/nDSy4jdVDc  |  🔄 RShift toggle")
+selTab:AddLabel("━━━━━━━  🏋️ MUSCLE LEGENDS  ━━━━━━━")
+selTab:AddButton("🆓  Load FREE Script (Muscle Legends)",function()
+    notify("SCP","⚡ Loading FREE script...",3); task.wait(1)
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/tejaz0521/SCP-HUB/refs/heads/main/SCP_PUBLIC_V5.lua"))()
+end)
+selTab:AddButton("💎  Load PAID Script (Muscle Legends)",function()
+    if isWhitelisted()then
+        notify("SCP","💎 Loading PAID script...",3); task.wait(1)
+        loadstring(game:HttpGet("https://pastebin.com/raw/kyMmrcQN"))()
+    else notify("SCP","❌ Not whitelisted! Join discord",4) end
+end)
+selTab:AddLabel("━━━━━━━  ⚔️ RIVALS  ━━━━━━━")
+selTab:AddButton("⚔️  Load Rivals Script",function()
+    notify("SCP","⚔️ Loading Rivals...",3); task.wait(1)
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/tejaz0521/SCP-HUB/refs/heads/main/SCP_RIVALS.lua"))()
+end)
+selTab:AddLabel("━━━━━━━  🏎️ RACE CLICKER  ━━━━━━━")
+selTab:AddButton("🏎️  Load Race Clicker Script",function()
+    notify("SCP","🏎️ Loading Race Clicker...",3); task.wait(1)
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/tejaz0521/SCP-HUB/refs/heads/main/SCP_RACECLICKER.lua"))()
+end)
+selTab:AddLabel("━━━━━━━  💬 LINKS  ━━━━━━━")
+selTab:AddButton("💬  Copy Discord Link",function() setclipboard("https://discord.gg/nDSy4jdVDc"); notify("SCP","✅ Copied!",3) end)
 
-SelectTab:CreateSection("🎮 Available Games")
-
--- Muscle Legends PAID
-SelectTab:CreateButton({
-    Name = "💎 Muscle Legends PAID (Whitelist)",
-    Callback = function()
-        Rayfield:Notify({Title="SCP HUB",Content="🔐 Checking whitelist...",Duration=3})
-        task.spawn(function()
-            if isWhitelisted() then
-                Rayfield:Notify({Title="SCP HUB",Content="✅ Whitelisted! Loading PAID...",Duration=3})
-                task.wait(1)
-                local ok,err = pcall(function() loadstring(game:HttpGet(PAID_URL))() end)
-                if not ok then Rayfield:Notify({Title="SCP HUB",Content="❌ Load failed: "..tostring(err),Duration=5}) end
-            else
-                Rayfield:Notify({Title="SCP HUB",Content="🔒 Not whitelisted! Join discord to get access.",Duration=5})
-            end
-        end)
-    end
-})
-
--- Muscle Legends FREE
-SelectTab:CreateButton({
-    Name = "💪 Muscle Legends FREE (Public)",
-    Callback = function()
-        Rayfield:Notify({Title="SCP HUB",Content="⏳ Loading FREE script...",Duration=3})
-        task.spawn(function()
-            local ok,err = pcall(function() loadstring(game:HttpGet(FREE_URL))() end)
-            if not ok then Rayfield:Notify({Title="SCP HUB",Content="❌ Load failed: "..tostring(err),Duration=5}) end
-        end)
-    end
-})
-
--- Rivals
-SelectTab:CreateButton({
-    Name = "⚔️ Rivals",
-    Callback = function()
-        Rayfield:Notify({Title="SCP HUB",Content="⏳ Loading Rivals...",Duration=3})
-        task.spawn(function()
-            local ok,err = pcall(function() loadstring(game:HttpGet(RIVALS_URL))() end)
-            if not ok then Rayfield:Notify({Title="SCP HUB",Content="❌ Load failed: "..tostring(err),Duration=5}) end
-        end)
-    end
-})
-
--- Race Clicker
-SelectTab:CreateButton({
-    Name = "🏎️ Race Clicker",
-    Callback = function()
-        Rayfield:Notify({Title="SCP HUB",Content="⏳ Loading Race Clicker...",Duration=3})
-        task.spawn(function()
-            local ok,err = pcall(function() loadstring(game:HttpGet(RACE_URL))() end)
-            if not ok then Rayfield:Notify({Title="SCP HUB",Content="❌ Load failed: "..tostring(err),Duration=5}) end
-        end)
-    end
-})
-
-SelectTab:CreateSection("💬 Discord")
-SelectTab:CreateButton({
-    Name = "💬 Copy Discord Link",
-    Callback = function()
-        setclipboard("https://discord.gg/nDSy4jdVDc")
-        Rayfield:Notify({Title="SCP HUB",Content="✅ Discord copied!",Duration=3})
-    end
-})
-
-notify("SCP HUB","⚡ Selector Loaded! Made by TEJAZ 👑",5)
+selTab:Show()
+notify("SCP HUB","⚡ Selector loaded! Choose your game 👑",4)
