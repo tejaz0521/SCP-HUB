@@ -91,7 +91,7 @@ local kWin, kFrame = library:AddWindow("🔑 SCP HUB — Key System", {
     title_bar           = {Color3.fromRGB(185,30,30), Color3.fromRGB(100,10,10)},
     background          = {Color3.fromRGB(18,5,5)},
     background_transparency = 0,
-    min_size            = Vector2.new(520,220),
+    min_size            = Vector2.new(520,180),
     toggle_key          = Enum.KeyCode.RightShift,
     can_resize          = false,
 })
@@ -123,7 +123,7 @@ local WIN_CFG = {
     title_bar           = {Color3.fromRGB(200,35,35), Color3.fromRGB(100,10,10)},
     background          = {Color3.fromRGB(18,5,5)},
     background_transparency = 0,
-    min_size            = Vector2.new(520,460),
+    min_size            = Vector2.new(520,360),
     toggle_key          = Enum.KeyCode.RightShift,
     can_resize          = true,
 }
