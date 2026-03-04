@@ -1,8 +1,15 @@
 -- ⚡ SCP HUB | RIVALS | Made by TEJAZ
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/imhenne187/SilenceElerium/refs/heads/main/src/SilenceEleriumLibrary.luau", true))()
+-- Reuse library from selector if available, else load fresh
+local library
+if _G.scpLibrary then
+    library = _G.scpLibrary
+else
+    library = loadstring(game:HttpGet("https://raw.githubusercontent.com/imhenne187/SilenceElerium/refs/heads/main/src/SilenceEleriumLibrary.luau", true))()
+    _G.scpLibrary = library
+end
 
 -- SCP LOGO INJECTOR
-local function injectSCPLogo(wFrame)
+local injectSCPLogo = _G.injectSCPLogo or (function(wFrame)
     task.spawn(function()
         -- Wait up to 3 seconds for Bar to exist
         local bar
@@ -32,7 +39,7 @@ local function injectSCPLogo(wFrame)
             lbl.ZIndex=tog.ZIndex+1; lbl.Parent=bar
         end)
     end)
-end
+end)
 
 local Players=game:GetService("Players"); local RunSvc=game:GetService("RunService")
 local UIS=game:GetService("UserInputService"); local SG=game:GetService("StarterGui")
