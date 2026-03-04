@@ -20,31 +20,43 @@ local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/imhen
 _G.scpLibrary = library
 
 -- SCP logo injector
+local function patchBar(bar)
+    task.spawn(function()
+        local tog
+        for i=1,20 do tog=bar:FindFirstChild("Toggle"); if tog then break end; task.wait(0.05) end
+        if not tog then return end
+        pcall(function()
+            tog.Image="rbxassetid://3926305904"
+            tog.ImageColor3=Color3.fromRGB(255,60,60)
+            tog.Size=UDim2.new(0,18,0,18)
+            local ex=bar:FindFirstChild("SCPLogo"); if ex then ex:Destroy() end
+            local lbl=Instance.new("TextLabel")
+            lbl.Name="SCPLogo"; lbl.Size=UDim2.new(0,32,0,14)
+            lbl.Position=UDim2.new(0,22,0,2); lbl.BackgroundTransparency=1
+            lbl.Text="SCP"; lbl.TextColor3=Color3.fromRGB(255,80,80)
+            lbl.TextSize=11; lbl.Font=Enum.Font.FredokaOne
+            lbl.ZIndex=tog.ZIndex+1; lbl.Parent=bar
+        end)
+    end)
+end
+
 local function injectSCPLogo(wFrame)
-    task.defer(function() pcall(function()
-        local bar=wFrame:FindFirstChild("Bar"); if not bar then return end
-        local tog=bar:FindFirstChild("Toggle"); if not tog then return end
-        tog.Image="rbxassetid://3926305904"
-        tog.ImageColor3=Color3.fromRGB(255,60,60)
-        tog.Size=UDim2.new(0,18,0,18)
-        local ex=bar:FindFirstChild("SCPLogo"); if ex then ex:Destroy() end
-        local lbl=Instance.new("TextLabel")
-        lbl.Name="SCPLogo"; lbl.Size=UDim2.new(0,32,0,14)
-        lbl.Position=UDim2.new(0,22,0,2); lbl.BackgroundTransparency=1
-        lbl.Text="SCP"; lbl.TextColor3=Color3.fromRGB(255,80,80)
-        lbl.TextSize=11; lbl.Font=Enum.Font.FredokaOne
-        lbl.ZIndex=tog.ZIndex+1; lbl.Parent=bar
-    end) end)
+    task.spawn(function()
+        local bar
+        for i=1,60 do bar=wFrame:FindFirstChild("Bar"); if bar then break end; task.wait(0.05) end
+        if bar then patchBar(bar) end
+    end)
 end
 _G.injectSCPLogo = injectSCPLogo
 
--- Patch ALL windows including key windows automatically
-local imgui = game:GetService("CoreGui"):FindFirstChild("imgui")
-if imgui then
-    imgui.DescendantAdded:Connect(function(d)
-        if d.Name == "Bar" then task.wait(0.05); injectSCPLogo(d.Parent) end
+-- Auto-patch ALL new windows (key windows, main windows)
+local function watchForBars(parent)
+    parent.DescendantAdded:Connect(function(d)
+        if d.Name == "Bar" then patchBar(d) end
     end)
 end
+pcall(function() watchForBars(game:GetService("CoreGui")) end)
+pcall(function() watchForBars(game:GetService("Players").LocalPlayer.PlayerGui) end)
 
 -- Main selector window
 local win,winF=library:AddWindow("⚡ SCP HUB  |  Game Selector  |  TEJAZ",{
