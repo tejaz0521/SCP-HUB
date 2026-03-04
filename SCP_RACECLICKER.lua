@@ -1,6 +1,5 @@
 -- ⚡ SCP HUB | RACE CLICKER | Made by TEJAZ
-local library = _G.scpLibrary or loadstring(game:HttpGet("https://raw.githubusercontent.com/imhenne187/SilenceElerium/refs/heads/main/src/SilenceEleriumLibrary.luau", true))()
-_G.scpLibrary = library
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/imhenne187/SilenceElerium/refs/heads/main/src/SilenceEleriumLibrary.luau", true))()
 
 -- SCP LOGO INJECTOR
 local function injectSCPLogo(wFrame)
