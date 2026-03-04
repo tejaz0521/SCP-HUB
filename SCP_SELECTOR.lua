@@ -89,7 +89,7 @@ selTab:AddButton("💎  Load PAID Script (Muscle Legends)",function()
     notify("SCP","💎 Loading PAID...",2)
     task.spawn(function()
         pcall(function() winF.Visible=false end)
-        local ok,err=pcall(function() loadstring(game:HttpGet("https://pastebin.com/raw/kyMmrcQN",true))() end)
+        local ok,err=pcall(function() loadstring(game:HttpGet("https://pastebin.com/raw/8DB2YJe7",true))() end)
         if not ok then notify("SCP","❌ "..tostring(err):sub(1,50),5) end
     end)
 end)
