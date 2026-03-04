@@ -39,14 +39,14 @@ local function checkKey(e) for _,v in pairs(getKeys())do if v==e then return tru
 
 -- KEY SYSTEM (required every execution)
 local keyPassed=false
-local kW,kF=library:AddWindow("🔑 SCP HUB — Key",{main_color=Color3.fromRGB(185,30,30),title_bar={Color3.fromRGB(185,30,30),Color3.fromRGB(100,10,10)},background={Color3.fromRGB(18,5,5)},background_transparency=0,min_size=Vector2.new(520,220),can_resize=false})
+local kW,kF=library:AddWindow("🔑 SCP HUB — Key",{main_color=Color3.fromRGB(185,30,30),title_bar={Color3.fromRGB(185,30,30),Color3.fromRGB(100,10,10)},background={Color3.fromRGB(18,5,5)},background_transparency=0,min_size=Vector2.new(600,160),can_resize=false})
 local kt,_=kW:AddTab("🔑  Key"); kt:AddLabel("⚡ SCP HUB | Race Clicker | Made by TEJAZ"); kt:AddLabel("🔑  Get key at: discord.gg/nDSy4jdVDc")
 local stL=kt:AddLabel("📋  Paste key below then press Enter")
 kt:AddTextBox("Paste key here...",function(v) if checkKey(v)then stL.Text="✅ Accepted!"; keyPassed=true else stL.Text="❌ Wrong key!" end end,{clear=true})
 kt:AddButton("💬  Copy Discord",function() setclipboard("https://discord.gg/nDSy4jdVDc"); notify("SCP","✅ Copied!",3) end); kt:Show()
 repeat task.wait(0.5) until keyPassed; kF:Destroy()
 
-local WIN_CFG={main_color=Color3.fromRGB(185,30,30),title_bar={Color3.fromRGB(200,35,35),Color3.fromRGB(100,10,10)},background={Color3.fromRGB(18,5,5)},background_transparency=0,min_size=Vector2.new(520,440),toggle_key=Enum.KeyCode.RightShift,can_resize=true}
+local WIN_CFG={main_color=Color3.fromRGB(185,30,30),title_bar={Color3.fromRGB(200,35,35),Color3.fromRGB(100,10,10)},background={Color3.fromRGB(18,5,5)},background_transparency=0,min_size=Vector2.new(600,260),toggle_key=Enum.KeyCode.RightShift,can_resize=true}
 local win,winF=library:AddWindow("⚡ SCP HUB  |  Race Clicker  |  TEJAZ",WIN_CFG)
 task.defer(function() injectSCPLogo(winF) end)
 
