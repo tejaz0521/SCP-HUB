@@ -9,7 +9,7 @@ else
 end
 
 -- SCP LOGO INJECTOR
-local injectSCPLogo = _G.injectSCPLogo or (function(wFrame)
+local injectSCPLogo = _G.injectSCPLogo or function(wFrame)
     task.spawn(function()
         -- Wait up to 3 seconds for Bar to exist
         local bar
@@ -39,7 +39,7 @@ local injectSCPLogo = _G.injectSCPLogo or (function(wFrame)
             lbl.ZIndex=tog.ZIndex+1; lbl.Parent=bar
         end)
     end)
-end)
+end
 
 local Players=game:GetService("Players"); local RS=game:GetService("ReplicatedStorage")
 local UIS=game:GetService("UserInputService"); local VU=game:GetService("VirtualUser"); local SG=game:GetService("StarterGui")
@@ -66,7 +66,6 @@ local WIN_CFG={main_color=Color3.fromRGB(185,30,30),title_bar={Color3.fromRGB(20
 local win,winF=library:AddWindow("⚡ SCP HUB  |  Race Clicker  |  TEJAZ",WIN_CFG)
 task.defer(function() injectSCPLogo(winF) end)
 
-pcall(function() local b=winF and winF:FindFirstChild(chr(34)Bar"); if b then local t=b:FindFirstChild(chr(34)Toggle"); if t then t.Image=chr(34)rbxassetid://6031075931"; t.ImageColor3=Color3.fromRGB(255,80,80) end end end)
 -- INFO TAB
 local infoTab,_=win:AddTab("📋  Info")
 infoTab:AddLabel("━━━━━━━  ⚡ SCP HUB | RACE CLICKER  ━━━━━━━")
