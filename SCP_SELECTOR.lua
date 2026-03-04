@@ -79,7 +79,7 @@ selTab:AddLabel("━━━━━━━  🏋️ MUSCLE LEGENDS  ━━━━━�
 selTab:AddButton("🆓  Load FREE Script (Muscle Legends)",function()
     notify("SCP","⚡ Loading...",2)
     task.spawn(function()
-        pcall(function() game:GetService("CoreGui"):FindFirstChild("imgui"):Destroy() end)
+        pcall(function() winF.Visible=false end)
         local ok,err=pcall(function() loadstring(game:HttpGet(BASE.."SCP_PUBLIC_V5.lua",true))() end)
         if not ok then notify("SCP","❌ "..tostring(err):sub(1,50),5) end
     end)
@@ -88,7 +88,7 @@ selTab:AddButton("💎  Load PAID Script (Muscle Legends)",function()
     if not isWhitelisted() then notify("SCP","❌ Not whitelisted! Join discord",4); return end
     notify("SCP","💎 Loading PAID...",2)
     task.spawn(function()
-        pcall(function() game:GetService("CoreGui"):FindFirstChild("imgui"):Destroy() end)
+        pcall(function() winF.Visible=false end)
         local ok,err=pcall(function() loadstring(game:HttpGet("https://pastebin.com/raw/kyMmrcQN",true))() end)
         if not ok then notify("SCP","❌ "..tostring(err):sub(1,50),5) end
     end)
@@ -98,7 +98,7 @@ selTab:AddLabel("━━━━━━━  ⚔️ RIVALS  ━━━━━━━")
 selTab:AddButton("⚔️  Load Rivals Script",function()
     notify("SCP","⚔️ Loading...",2)
     task.spawn(function()
-        pcall(function() game:GetService("CoreGui"):FindFirstChild("imgui"):Destroy() end)
+        pcall(function() winF.Visible=false end)
         local ok,err=pcall(function() loadstring(game:HttpGet(BASE.."SCP_RIVALS.lua",true))() end)
         if not ok then notify("SCP","❌ "..tostring(err):sub(1,50),5) end
     end)
@@ -108,7 +108,7 @@ selTab:AddLabel("━━━━━━━  🏎️ RACE CLICKER  ━━━━━━
 selTab:AddButton("🏎️  Load Race Clicker Script",function()
     notify("SCP","🏎️ Loading...",2)
     task.spawn(function()
-        pcall(function() game:GetService("CoreGui"):FindFirstChild("imgui"):Destroy() end)
+        pcall(function() winF.Visible=false end)
         local ok,err=pcall(function() loadstring(game:HttpGet(BASE.."SCP_RACECLICKER.lua",true))() end)
         if not ok then notify("SCP","❌ "..tostring(err):sub(1,50),5) end
     end)
