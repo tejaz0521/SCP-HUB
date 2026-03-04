@@ -40,7 +40,7 @@ local function isWhitelisted()
     return false
 end
 
-local WIN_CFG={main_color=Color3.fromRGB(185,30,30),title_bar={Color3.fromRGB(200,35,35),Color3.fromRGB(100,10,10)},background={Color3.fromRGB(18,5,5)},background_transparency=0,min_size=Vector2.new(520,460),toggle_key=Enum.KeyCode.RightShift,can_resize=false}
+local WIN_CFG={main_color=Color3.fromRGB(185,30,30),title_bar={Color3.fromRGB(200,35,35),Color3.fromRGB(100,10,10)},background={Color3.fromRGB(18,5,5)},background_transparency=0,min_size=Vector2.new(600,280),toggle_key=Enum.KeyCode.RightShift,can_resize=false}
 local win,winF=library:AddWindow("⚡ SCP HUB  |  Game Selector  |  TEJAZ",WIN_CFG)
 task.defer(function() injectSCPLogo(winF) end)
 
