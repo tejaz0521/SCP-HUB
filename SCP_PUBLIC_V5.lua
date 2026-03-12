@@ -30,13 +30,13 @@ local injectSCPLogo = _G.injectSCPLogo or (function(wFrame)
         if not tog then return end
         pcall(function()
             tog.Image="rbxassetid://3926305904"
-            tog.ImageColor3=Color3.fromRGB(255,60,60)
+            tog.ImageColor3=Color3.fromRGB(200,200,200)
             tog.Size=UDim2.new(0,18,0,18)
             local ex=bar:FindFirstChild("SCPLogo"); if ex then ex:Destroy() end
             local lbl=Instance.new("TextLabel")
             lbl.Name="SCPLogo"; lbl.Size=UDim2.new(0,32,0,14)
             lbl.Position=UDim2.new(0,22,0,2); lbl.BackgroundTransparency=1
-            lbl.Text="SCP"; lbl.TextColor3=Color3.fromRGB(255,80,80)
+            lbl.Text="SCP"; lbl.TextColor3=Color3.fromRGB(180,180,180)
             lbl.TextSize=11; lbl.Font=Enum.Font.FredokaOne
             lbl.ZIndex=tog.ZIndex+1; lbl.Parent=bar
         end)
@@ -101,29 +101,33 @@ end
 -- KEY SYSTEM (required every execution)
 local keyPassed=false
 local kWin, kFrame = library:AddWindow("🔑 SCP HUB — Key System", {
-    main_color          = Color3.fromRGB(185,30,30),
+    main_color=Color3.fromRGB(30,30,30),
     title_bar           = {Color3.fromRGB(185,30,30), Color3.fromRGB(100,10,10)},
-    background          = {Color3.fromRGB(18,5,5)},
+    background={Color3.fromRGB(8,8,8)},
     background_transparency = 0,
     min_size            = Vector2.new(600,160),
     toggle_key          = Enum.KeyCode.RightShift,
     can_resize          = false,
 })
 local kt,_ = kWin:AddTab("🔑  Key")
-kt:AddLabel("⚡ SCP HUB  |  Muscle Legends V5  |  Made by TEJAZ")
-kt:AddLabel("🔑  Get your FREE key at:  discord.gg/KDx3D8hARN")
-local stLbl = kt:AddLabel("📋  Paste your key below then press Enter")
+kt:AddLabel("⚡  𝗦𝗖𝗣 𝗛𝗨𝗕  •  𝗠𝘂𝘀𝗰𝗹𝗲 𝗟𝗲𝗴𝗲𝗻𝗱𝘀 𝗩𝟱  •  𝗧𝗘𝗝𝗔𝗭")
+kt:AddLabel("🔑  𝗚𝗲𝘁 𝘆𝗼𝘂𝗿 𝗙𝗥𝗘𝗘 𝗸𝗲𝘆 𝗮𝘁  discord.gg/KDx3D8hARN")
+local stLbl = kt:AddLabel("📋  𝗣𝗮𝘀𝘁𝗲 𝗸𝗲𝘆 𝗯𝗲𝗹𝗼𝘄 𝘁𝗵𝗲𝗻 𝗽𝗿𝗲𝘀𝘀 𝗘𝗻𝘁𝗲𝗿")
 kt:AddTextBox("Paste key here then press Enter...", function(v)
     if checkKey(v) then
         stLbl.Text = "✅  Key accepted!  Loading SCP HUB..."
         keyPassed = true
     else
-        stLbl.Text = "❌  Wrong key!  discord.gg/nDSy4jdVDc"
+        stLbl.Text = "❌  Wrong key!  discord.gg/KDx3D8hARN"
     end
 end,{clear=true})
 kt:AddButton("💬  Copy Discord Link", function()
-    setclipboard("https://discord.gg/nDSy4jdVDc")
+    setclipboard("https://discord.gg/KDx3D8hARN")
     notify("SCP HUB","✅ Discord copied!",3)
+end)
+kt:AddButton("🔑  𝗚𝗲𝘁 𝗙𝗿𝗲𝗲 𝗞𝗲𝘆", function()
+    setclipboard("https://discord.gg/KDx3D8hARN")
+    notify("SCP","🔑 Discord copied! Join to get key 👑",4)
 end)
 injectSCPLogo(kFrame)
 kt:Show()
@@ -134,9 +138,9 @@ kFrame:Destroy()
 --  MAIN WINDOW
 -- ══════════════════════════════════════════
 local WIN_CFG = {
-    main_color          = Color3.fromRGB(185,30,30),
+    main_color=Color3.fromRGB(30,30,30),
     title_bar           = {Color3.fromRGB(200,35,35), Color3.fromRGB(100,10,10)},
-    background          = {Color3.fromRGB(18,5,5)},
+    background={Color3.fromRGB(8,8,8)},
     background_transparency = 0,
     min_size            = Vector2.new(600,280),
     toggle_key          = Enum.KeyCode.RightShift,
@@ -149,27 +153,27 @@ task.defer(function() injectSCPLogo(winFrame) end)
 pcall(function()
     local bar=winFrame:FindFirstChild("Bar")
     if bar then local tog=bar:FindFirstChild("Toggle")
-        if tog then tog.Image="rbxassetid://6031075931"; tog.ImageColor3=Color3.fromRGB(255,80,80) end
+        if tog then tog.Image="rbxassetid://6031075931"; tog.ImageColor3=Color3.fromRGB(200,200,200) end
     end
 end)
 -- ══════════════════════════════════════════
 --  TAB: INFO
 -- ══════════════════════════════════════════
-local infoTab,_ = win:AddTab("📋  Info")
-infoTab:AddLabel("━━━━━━━  ⚡ SCP HUB INFO  ━━━━━━━")
-infoTab:AddLabel("🎮  Script:   SCP HUB  |  Muscle Legends V5")
-infoTab:AddLabel("👑  Author:   TEJAZ  (SCP_TEJAZ)")
-infoTab:AddLabel("💎  Version:  4.5")
-infoTab:AddLabel("🔑  Key:      discord.gg/nDSy4jdVDc")
-infoTab:AddLabel("💬  Discord:  discord.gg/nDSy4jdVDc")
-infoTab:AddLabel("🔄  Toggle:   RightShift key")
-infoTab:AddLabel("━━━━━━━  📊 LIVE PLAYER INFO  ━━━━━━━")
+local infoTab,_ = win:AddTab("📋  𝗜𝗻𝗳𝗼")
+infoTab:AddLabel("━━━━━━━  ⚡  𝗦𝗖𝗣 𝗛𝗨𝗕 𝗜𝗡𝗙𝗢  ━━━━━━━")
+infoTab:AddLabel("🎮  𝗦𝗰𝗿𝗶𝗽𝘁   SCP HUB  •  Muscle Legends V5")
+infoTab:AddLabel("👑  𝗔𝘂𝘁𝗵𝗼𝗿   TEJAZ  (SCP_TEJAZ)")
+infoTab:AddLabel("💎  𝗩𝗲𝗿𝘀𝗶𝗼𝗻   4.5")
+infoTab:AddLabel("🔑  𝗞𝗲𝘆      discord.gg/KDx3D8hARN")
+infoTab:AddLabel("💬  𝗗𝗶𝘀𝗰𝗼𝗿𝗱  discord.gg/KDx3D8hARN")
+infoTab:AddLabel("🔄  𝗧𝗼𝗴𝗴𝗹𝗲   RightShift")
+infoTab:AddLabel("━━━━━━━  📊  𝗟𝗜𝗩𝗘 𝗣𝗟𝗔𝗬𝗘𝗥 𝗜𝗡𝗙𝗢  ━━━━━━━")
 local pingLbl  = infoTab:AddLabel("📶  Ping:  calculating...")
 local nameLbl  = infoTab:AddLabel("👤  Name:  "..LP.Name)
 local dispLbl  = infoTab:AddLabel("🏷️  Display:  "..LP.DisplayName)
 local idLbl    = infoTab:AddLabel("🆔  UserID:  "..LP.UserId)
 local charLbl  = infoTab:AddLabel("🌐  Server Players:  "..#Players:GetPlayers())
-infoTab:AddLabel("━━━━━━━  🔧 SERVER INFO  ━━━━━━━")
+infoTab:AddLabel("━━━━━━━  🔧  𝗦𝗘𝗥𝗩𝗘𝗥 𝗜𝗡𝗙𝗢  ━━━━━━━")
 local jobLbl   = infoTab:AddLabel("🖥️  JobID:  "..game.JobId:sub(1,20).."...")
 local placeLbl = infoTab:AddLabel("📍  PlaceID:  "..game.PlaceId)
 task.spawn(function()
@@ -182,9 +186,9 @@ task.spawn(function()
         end)
     end
 end)
-infoTab:AddLabel("━━━━━━━  🔗 LINKS  ━━━━━━━")
+infoTab:AddLabel("━━━━━━━  🔗  𝗟𝗜𝗡𝗞𝗦  ━━━━━━━")
 infoTab:AddButton("💬  Copy Discord Link", function()
-    setclipboard("https://discord.gg/nDSy4jdVDc")
+    setclipboard("https://discord.gg/KDx3D8hARN")
     notify("SCP HUB","✅ Discord copied!",3)
 end)
 infoTab:AddButton("🗑️  Clear Saved Key", function()
@@ -195,11 +199,11 @@ end)
 -- ══════════════════════════════════════════
 --  TAB: OP MAIN
 -- ══════════════════════════════════════════
-local opTab,_ = win:AddTab("⚡  Op Main")
+local opTab,_ = win:AddTab("⚡  𝗢𝗽 𝗠𝗮𝗶𝗻")
 local killM = "Teleport"
 local wl = {}
 
-opTab:AddLabel("━━━━━━━  👊 AUTO PUNCH  ━━━━━━━")
+opTab:AddLabel("━━━━━━━  👊  𝗔𝗨𝗧𝗢 𝗣𝗨𝗡𝗖𝗛  ━━━━━━━")
 opTab:AddSwitch("👊  Auto Punch", function(v)
     _G.scpAP=v
     if v then task.spawn(function() while _G.scpAP do
@@ -213,7 +217,7 @@ opTab:AddSwitch("⚡  Fast Punch (0 cooldown)", function(v)
     if p then local at=p:FindFirstChild("attackTime"); if at then at.Value=v and 0 or 0.35 end end
 end)
 
-opTab:AddLabel("━━━━━━━  👑 AUTO KING  ━━━━━━━")
+opTab:AddLabel("━━━━━━━  👑  𝗔𝗨𝗧𝗢 𝗞𝗜𝗡𝗚  ━━━━━━━")
 opTab:AddSwitch("👑  Auto King (Lock at throne)", function(v)
     local kCF=CFrame.new(-8865,430,-5749)
     if v then
@@ -230,7 +234,7 @@ opTab:AddSwitch("👑  Auto King (Lock at throne)", function(v)
     end
 end)
 
-opTab:AddLabel("━━━━━━━  🛡️ DEFENSE  ━━━━━━━")
+opTab:AddLabel("━━━━━━━  🛡️  𝗗𝗘𝗙𝗘𝗡𝗦𝗘  ━━━━━━━")
 opTab:AddSwitch("🛡️  Anti Knockback", function(v)
     local hrp=LP.Character and LP.Character:FindFirstChild("HumanoidRootPart")
     if v and hrp then
@@ -272,7 +276,7 @@ opTab:AddSwitch("🌀  Spin (Anti-Aim)", function(v)
     end end) end
 end)
 
-opTab:AddLabel("━━━━━━━  ⚔️ KILL PLAYERS  ━━━━━━━")
+opTab:AddLabel("━━━━━━━  ⚔️  𝗞𝗜𝗟𝗟 𝗣𝗟𝗔𝗬𝗘𝗥𝗦  ━━━━━━━")
 opTab:AddButton("🔄  Toggle Kill Method (now: Teleport)", function()
     killM=killM=="Teleport" and "None" or "Teleport"
     notify("SCP HUB","Kill Method: "..killM,2)
@@ -341,9 +345,9 @@ end)
 -- ══════════════════════════════════════════
 --  TAB: FARM
 -- ══════════════════════════════════════════
-local farmTab,_ = win:AddTab("🌴  Farm")
+local farmTab,_ = win:AddTab("🌴  𝗙𝗮𝗿𝗺")
 
-farmTab:AddLabel("━━━━━━━  ⚡ AUTO LIFT  ━━━━━━━")
+farmTab:AddLabel("━━━━━━━  ⚡  𝗔𝗨𝗧𝗢 𝗟𝗜𝗙𝗧  ━━━━━━━")
 farmTab:AddSwitch("⚡  Auto Lift (FireServer rep)", function(v)
     getgenv().scpAL=v
     if v then task.spawn(function() while getgenv().scpAL do
@@ -371,7 +375,7 @@ farmTab:AddSwitch("🏋️  Auto Bench Press", function(v)
     end end) end
 end)
 
-farmTab:AddLabel("━━━━━━━  🎒 AUTO EQUIP  ━━━━━━━")
+farmTab:AddLabel("━━━━━━━  🎒  𝗔𝗨𝗧𝗢 𝗘𝗤𝗨𝗜𝗣  ━━━━━━━")
 for _,tn in ipairs({"Weight","Pushups","Situps","Handstand","Dumbbell"}) do
     farmTab:AddSwitch("🎒  Equip "..tn, function(v)
         getgenv()["scpEQ"..tn]=v
@@ -383,7 +387,7 @@ for _,tn in ipairs({"Weight","Pushups","Situps","Handstand","Dumbbell"}) do
     end)
 end
 
-farmTab:AddLabel("━━━━━━━  🌴 JUNGLE MACHINES  ━━━━━━━")
+farmTab:AddLabel("━━━━━━━  🌴  𝗝𝗨𝗡𝗚𝗟𝗘 𝗠𝗔𝗖𝗛𝗜𝗡𝗘𝗦  ━━━━━━━")
 local machines={
     {"🌴  Jungle Bench",  "Jungle Bench",   CFrame.new(-8629.88,64.88,1855.03)},
     {"🏋️  Bar Lift",      "Jungle Bar Lift", CFrame.new(-8678.06,14.50,2089.26)},
@@ -404,7 +408,7 @@ for _,m in ipairs(machines) do
     end)
 end
 
-farmTab:AddLabel("━━━━━━━  🔄 AUTO REBIRTH  ━━━━━━━")
+farmTab:AddLabel("━━━━━━━  🔄  𝗔𝗨𝗧𝗢 𝗥𝗘𝗕𝗜𝗥𝗧𝗛  ━━━━━━━")
 local tReb=nil
 farmTab:AddTextBox("Target rebirths (blank = infinite)", function(v) tReb=tonumber(v) end,{clear=false})
 farmTab:AddSwitch("🔄  Auto Rebirth", function(v)
@@ -456,7 +460,7 @@ end)
 -- ══════════════════════════════════════════
 --  TAB: FAST FARM (Rocks)
 -- ══════════════════════════════════════════
-local fastTab,_ = win:AddTab("⚡  Fast Farm")
+local fastTab,_ = win:AddTab("⚡  𝗙𝗮𝘀𝘁 𝗙𝗮𝗿𝗺")
 
 fastTab:AddLabel("━━━━━━━  🪨 ROCK SETUP  ━━━━━━━")
 fastTab:AddSwitch("👊  Auto Punch", function(v)
@@ -531,7 +535,7 @@ end
 -- ══════════════════════════════════════════
 --  TAB: GIFTS
 -- ══════════════════════════════════════════
-local giftTab,_ = win:AddTab("🎁  Gifts")
+local giftTab,_ = win:AddTab("🎁  𝗚𝗶𝗳𝘁𝘀")
 
 giftTab:AddLabel("━━━━━━━  📦 INVENTORY  ━━━━━━━")
 local eLbl=giftTab:AddLabel("🥚  Eggs: 0")
@@ -592,7 +596,7 @@ end)
 -- ══════════════════════════════════════════
 --  TAB: MISC
 -- ══════════════════════════════════════════
-local miscTab,_ = win:AddTab("⚙️  Misc")
+local miscTab,_ = win:AddTab("⚙️  𝗠𝗶𝘀𝗰")
 
 miscTab:AddLabel("━━━━━━━  🖥️ PERFORMANCE  ━━━━━━━")
 miscTab:AddSwitch("🖥️  Low Graphics (FPS Boost)", function(v)
