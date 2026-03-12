@@ -120,28 +120,28 @@ end
 local function checkKey(e) for _,v in pairs(getKeys()) do if v==e then return true end end return false end
 
 local keyPassed = false
-local kW,kF = library:AddWindow("🔑 𝗦𝗖𝗣 𝗛𝗨𝗕 — 𝗞𝗲𝘆 𝗦𝘆𝘀𝘁𝗲𝗺", {
+local kW,kF = library:AddWindow("🔑 SCP HUB — Key System", {
     main_color=Color3.fromRGB(0,180,80),
     title_bar={Color3.fromRGB(0,200,90),Color3.fromRGB(0,80,35)},
     background={Color3.fromRGB(3,12,6)},
     background_transparency=0,
-    min_size=Vector2.new(600,160),
+    min_size=Vector2.new(440,150),
     can_resize=false
 })
-local kt,_ = kW:AddTab("🔑  𝗞𝗲𝘆")
-kt:AddLabel("⚡  𝗦𝗖𝗣 𝗛𝗨𝗕  •  𝗟𝗲𝗴𝗲𝗻𝗱𝘀 𝗼𝗳 𝗦𝗽𝗲𝗲𝗱  •  𝗧𝗘𝗝𝗔𝗭")
-kt:AddLabel("🔑  𝗚𝗲𝘁 𝘆𝗼𝘂𝗿 𝗙𝗥𝗘𝗘 𝗸𝗲𝘆 𝗮𝘁  discord.gg/KDx3D8hARN")
-local stL = kt:AddLabel("📋  𝗣𝗮𝘀𝘁𝗲 𝗸𝗲𝘆 𝗯𝗲𝗹𝗼𝘄 𝘁𝗵𝗲𝗻 𝗽𝗿𝗲𝘀𝘀 𝗘𝗻𝘁𝗲𝗿")
+local kt,_ = kW:AddTab("🔑  Key")
+kt:AddLabel("⚡  SCP HUB  •  Legends of Speed  •  TEJAZ")
+kt:AddLabel("🔑  Get your FREE key at  discord.gg/KDx3D8hARN")
+local stL = kt:AddLabel("📋  Paste key below then press Enter")
 kt:AddTextBox("Paste key here...", function(v)
-    if checkKey(v) then stL.Text = "✅  𝗞𝗲𝘆 𝗔𝗰𝗰𝗲𝗽𝘁𝗲𝗱!  𝗟𝗼𝗮𝗱𝗶𝗻𝗴..."; keyPassed = true
-    else stL.Text = "❌  𝗪𝗿𝗼𝗻𝗴 𝗸𝗲𝘆!  discord.gg/KDx3D8hARN" end
+    if checkKey(v) then stL.Text = "✅  Key Accepted!  Loading..."; keyPassed = true
+    else stL.Text = "❌  Wrong key!  discord.gg/KDx3D8hARN" end
 end, {clear=true})
-kt:AddButton("💬  𝗖𝗼𝗽𝘆 𝗗𝗶𝘀𝗰𝗼𝗿𝗱", function() setclipboard("https://discord.gg/KDx3D8hARN"); notify("SCP","✅ Copied!",3) end)
-kt:AddButton("🔑  𝗚𝗲𝘁 𝗙𝗿𝗲𝗲 𝗞𝗲𝘆", function()
+kt:AddButton("💬  Copy Discord", function() setclipboard("https://discord.gg/KDx3D8hARN"); notify("SCP","✅ Copied!",3) end)
+kt:AddButton("🔑  Get Free Key", function()
     setclipboard("https://discord.gg/KDx3D8hARN")
     notify("SCP","🔑 Discord copied! Join to get key 👑",4)
 end)
-kt:AddButton("🔑  𝗚𝗲𝘁 𝗞𝗲𝘆", function() setclipboard("https://discord.gg/KDx3D8hARN"); notify("SCP","🔑 Join Discord to get key!",3) end)
+kt:AddButton("🔑  Get Key", function() setclipboard("https://discord.gg/KDx3D8hARN"); notify("SCP","🔑 Join Discord to get key!",3) end)
 injectSCPLogo(kF)
 kt:Show()
 repeat task.wait(0.5) until keyPassed
@@ -150,7 +150,7 @@ kF:Destroy()
 -- ══════════════════════════════════════════
 --  MAIN WINDOW
 -- ══════════════════════════════════════════
-local win,winF = library:AddWindow("⚡ 𝗦𝗖𝗣 𝗛𝗨𝗕  |  𝗟𝗲𝗴𝗲𝗻𝗱𝘀 𝗼𝗳 𝗦𝗽𝗲𝗲𝗱  |  𝗧𝗘𝗝𝗔𝗭", {
+local win,winF = library:AddWindow("⚡ SCP HUB  |  Legends of Speed  |  TEJAZ", {
     main_color=Color3.fromRGB(0,180,80),
     title_bar={Color3.fromRGB(0,200,90),Color3.fromRGB(0,80,35)},
     background={Color3.fromRGB(3,12,6)},
@@ -164,26 +164,26 @@ task.defer(function() injectSCPLogo(winF) end)
 -- ══════════════════════════════════════════
 --  INFO TAB
 -- ══════════════════════════════════════════
-local infoTab,_ = win:AddTab("📋  𝗜𝗻𝗳𝗼")
-infoTab:AddLabel("━━━━━━━  ⚡  𝗦𝗖𝗣 𝗛𝗨𝗕  •  𝗟𝗘𝗚𝗘𝗡𝗗𝗦 𝗢𝗙 𝗦𝗣𝗘𝗘𝗗  ━━━━━━━")
-infoTab:AddLabel("👑  𝗔𝘂𝘁𝗵𝗼𝗿   TEJAZ  (SCP_TEJAZ)")
-infoTab:AddLabel("💎  𝗩𝗲𝗿𝘀𝗶𝗼𝗻   1.0")
-infoTab:AddLabel("🔄  𝗧𝗼𝗴𝗴𝗹𝗲   RightShift")
-infoTab:AddLabel("💬  𝗗𝗶𝘀𝗰𝗼𝗿𝗱  discord.gg/KDx3D8hARN")
-infoTab:AddLabel("━━━━━━━  📊  𝗟𝗜𝗩𝗘 𝗜𝗡𝗙𝗢  ━━━━━━━")
-local pingLbl = infoTab:AddLabel("📶  𝗣𝗶𝗻𝗴   calculating...")
-local plrLbl  = infoTab:AddLabel("🌐  𝗣𝗹𝗮𝘆𝗲𝗿𝘀   "..#Players:GetPlayers())
-local mapLbl  = infoTab:AddLabel("🗺️  𝗠𝗮𝗽   loading...")
-infoTab:AddLabel("━━━━━━━  🔗  𝗟𝗜𝗡𝗞𝗦  ━━━━━━━")
-infoTab:AddButton("💬  𝗖𝗼𝗽𝘆 𝗗𝗶𝘀𝗰𝗼𝗿𝗱", function() setclipboard("https://discord.gg/KDx3D8hARN"); notify("SCP","✅ Copied!",3) end)
+local infoTab,_ = win:AddTab("📋  Info")
+infoTab:AddLabel("━━━━━━━  ⚡  SCP HUB  •  LEGENDS OF SPEED  ━━━━━━━")
+infoTab:AddLabel("👑  Author   TEJAZ  (SCP_TEJAZ)")
+infoTab:AddLabel("💎  Version   1.0")
+infoTab:AddLabel("🔄  Toggle   RightShift")
+infoTab:AddLabel("💬  Discord  discord.gg/KDx3D8hARN")
+infoTab:AddLabel("━━━━━━━  📊  LIVE INFO  ━━━━━━━")
+local pingLbl = infoTab:AddLabel("📶  Ping   calculating...")
+local plrLbl  = infoTab:AddLabel("🌐  Players   "..#Players:GetPlayers())
+local mapLbl  = infoTab:AddLabel("🗺️  Map   loading...")
+infoTab:AddLabel("━━━━━━━  🔗  LINKS  ━━━━━━━")
+infoTab:AddButton("💬  Copy Discord", function() setclipboard("https://discord.gg/KDx3D8hARN"); notify("SCP","✅ Copied!",3) end)
 
 task.spawn(function()
     while task.wait(1) do
         pcall(function()
             local ping = game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()
-            pingLbl.Text = "📶  𝗣𝗶𝗻𝗴   "..ping.."ms"
-            plrLbl.Text  = "🌐  𝗣𝗹𝗮𝘆𝗲𝗿𝘀   "..#Players:GetPlayers()
-            mapLbl.Text  = "🗺️  𝗠𝗮𝗽   "..tostring(getCurrentMap())
+            pingLbl.Text = "📶  Ping   "..ping.."ms"
+            plrLbl.Text  = "🌐  Players   "..#Players:GetPlayers()
+            mapLbl.Text  = "🗺️  Map   "..tostring(getCurrentMap())
         end)
     end
 end)
@@ -191,21 +191,21 @@ end)
 -- ══════════════════════════════════════════
 --  FARM TAB
 -- ══════════════════════════════════════════
-local farmTab,_ = win:AddTab("🌀  𝗙𝗮𝗿𝗺")
-farmTab:AddLabel("━━━━━━━  🌀  𝗔𝗨𝗧𝗢 𝗙𝗔𝗥𝗠  ━━━━━━━")
+local farmTab,_ = win:AddTab("🌀  Farm")
+farmTab:AddLabel("━━━━━━━  🌀  AUTO FARM  ━━━━━━━")
 farmTab:AddLabel("⚠️  Select orbs below then toggle Auto Farm")
 
 -- Orb selector
 local selectedOrbs = {}
-farmTab:AddDropdown("🔮  𝗦𝗲𝗹𝗲𝗰𝘁 𝗢𝗿𝗯𝘀", listOrbs, function(v) selectedOrbs = v end)
+farmTab:AddDropdown("🔮  Select Orbs", listOrbs, function(v) selectedOrbs = v end)
 
 -- Farm multiplier
 local farmMult = 20
-farmTab:AddSlider("⚡  𝗙𝗮𝗿𝗺 𝗠𝘂𝗹𝘁𝗶𝗽𝗹𝗶𝗲𝗿", {min=1,max=100,default=20}, function(v) farmMult = v end)
+farmTab:AddSlider("⚡  Farm Multiplier", {min=1,max=100,default=20}, function(v) farmMult = v end)
 
 -- Auto Farm
 local autoFarm = false
-farmTab:AddSwitch("🌀  𝗔𝘂𝘁𝗼 𝗙𝗮𝗿𝗺", function(v) autoFarm = v; notify("SCP", v and "✅ Auto Farm ON" or "❌ Auto Farm OFF", 2) end)
+farmTab:AddSwitch("🌀  Auto Farm", function(v) autoFarm = v; notify("SCP", v and "✅ Auto Farm ON" or "❌ Auto Farm OFF", 2) end)
 task.spawn(function()
     while task.wait() do pcall(function()
         if autoFarm then
@@ -216,27 +216,27 @@ task.spawn(function()
     end) end
 end)
 
-farmTab:AddLabel("━━━━━━━  🔄  𝗔𝗨𝗧𝗢 𝗥𝗘𝗕𝗜𝗥𝗧𝗛  ━━━━━━━")
+farmTab:AddLabel("━━━━━━━  🔄  AUTO REBIRTH  ━━━━━━━")
 local autoRebirth = false
-farmTab:AddSwitch("🔄  𝗔𝘂𝘁𝗼 𝗥𝗲𝗯𝗶𝗿𝘁𝗵", function(v) autoRebirth = v; notify("SCP", v and "✅ Auto Rebirth ON" or "❌ Auto Rebirth OFF", 2) end)
+farmTab:AddSwitch("🔄  Auto Rebirth", function(v) autoRebirth = v; notify("SCP", v and "✅ Auto Rebirth ON" or "❌ Auto Rebirth OFF", 2) end)
 task.spawn(function()
     while task.wait(0.5) do pcall(function()
         if autoRebirth then DoRebirth() end
     end) end
 end)
 
-farmTab:AddLabel("━━━━━━━  🎁  𝗔𝗨𝗧𝗢 𝗚𝗜𝗙𝗧𝗦  ━━━━━━━")
+farmTab:AddLabel("━━━━━━━  🎁  AUTO GIFTS  ━━━━━━━")
 local autoGifts = false
-farmTab:AddSwitch("🎁  𝗔𝘂𝘁𝗼 𝗖𝗹𝗮𝗶𝗺 𝗚𝗶𝗳𝘁𝘀", function(v) autoGifts = v; notify("SCP", v and "✅ Auto Gifts ON" or "❌ Auto Gifts OFF", 2) end)
+farmTab:AddSwitch("🎁  Auto Claim Gifts", function(v) autoGifts = v; notify("SCP", v and "✅ Auto Gifts ON" or "❌ Auto Gifts OFF", 2) end)
 task.spawn(function()
     while task.wait() do pcall(function()
         if autoGifts then ClaimGift(getHighestGift() + 1) end
     end) end
 end)
 
-farmTab:AddLabel("━━━━━━━  🏁  𝗔𝗨𝗧𝗢 𝗥𝗔𝗖𝗘  ━━━━━━━")
+farmTab:AddLabel("━━━━━━━  🏁  AUTO RACE  ━━━━━━━")
 local autoRace = false
-farmTab:AddSwitch("🏁  𝗔𝘂𝘁𝗼 𝗥𝗮𝗰𝗲 𝗪𝗶𝗻", function(v) autoRace = v; notify("SCP", v and "✅ Auto Race ON" or "❌ Auto Race OFF", 2) end)
+farmTab:AddSwitch("🏁  Auto Race Win", function(v) autoRace = v; notify("SCP", v and "✅ Auto Race ON" or "❌ Auto Race OFF", 2) end)
 
 pcall(function()
     RS:WaitForChild("raceInProgress").Changed:Connect(function(state)
@@ -260,8 +260,8 @@ pcall(function()
     end)
 end)
 
-farmTab:AddLabel("━━━━━━━  📦  𝗖𝗢𝗟𝗟𝗘𝗖𝗧 𝗖𝗛𝗘𝗦𝗧𝗦  ━━━━━━━")
-farmTab:AddButton("📦  𝗖𝗼𝗹𝗹𝗲𝗰𝘁 𝗔𝗹𝗹 𝗖𝗵𝗲𝘀𝘁𝘀", function()
+farmTab:AddLabel("━━━━━━━  📦  COLLECT CHESTS  ━━━━━━━")
+farmTab:AddButton("📦  Collect All Chests", function()
     local count = 0
     for _,v in pairs(workspace:GetChildren()) do
         if v.Name:find("Chest") and v:FindFirstChild("circleInner") then
@@ -278,13 +278,13 @@ end)
 -- ══════════════════════════════════════════
 --  PLAYER TAB
 -- ══════════════════════════════════════════
-local plrTab,_ = win:AddTab("🏃  𝗣𝗹𝗮𝘆𝗲𝗿")
-plrTab:AddLabel("━━━━━━━  ⚡  𝗦𝗣𝗘𝗘𝗗  ━━━━━━━")
+local plrTab,_ = win:AddTab("🏃  Player")
+plrTab:AddLabel("━━━━━━━  ⚡  SPEED  ━━━━━━━")
 
 local speedVal = 300
-plrTab:AddSlider("🏃  𝗦𝗽𝗲𝗲𝗱 𝗠𝘂𝗹𝘁𝗶𝗽𝗹𝗶𝗲𝗿", {min=16,max=5000,default=300}, function(v) speedVal = v end)
+plrTab:AddSlider("🏃  Speed Multiplier", {min=16,max=5000,default=300}, function(v) speedVal = v end)
 local speedOn = false
-plrTab:AddSwitch("⚡  𝗦𝗽𝗲𝗲𝗱 𝗛𝗮𝗰𝗸", function(v)
+plrTab:AddSwitch("⚡  Speed Hack", function(v)
     speedOn = v
     if not v then Hum.WalkSpeed = 16 end
     notify("SCP", v and "✅ Speed ON" or "❌ Speed OFF", 2)
@@ -295,11 +295,11 @@ task.spawn(function()
     end) end
 end)
 
-plrTab:AddLabel("━━━━━━━  🦘  𝗝𝗨𝗠𝗣  ━━━━━━━")
+plrTab:AddLabel("━━━━━━━  🦘  JUMP  ━━━━━━━")
 local jumpVal = 100
-plrTab:AddSlider("🦘  𝗝𝘂𝗺𝗽 𝗣𝗼𝘄𝗲𝗿", {min=50,max=1000,default=100}, function(v) jumpVal = v end)
+plrTab:AddSlider("🦘  Jump Power", {min=50,max=1000,default=100}, function(v) jumpVal = v end)
 local jumpOn = false
-plrTab:AddSwitch("🦘  𝗦𝗲𝘁 𝗝𝘂𝗺𝗽 𝗣𝗼𝘄𝗲𝗿", function(v)
+plrTab:AddSwitch("🦘  Set Jump Power", function(v)
     jumpOn = v
     if not v then Hum.JumpPower = 50 end
     notify("SCP", v and "✅ Jump Power ON" or "❌ Jump Power OFF", 2)
@@ -311,14 +311,14 @@ task.spawn(function()
 end)
 
 local infJump = false
-plrTab:AddSwitch("♾️  𝗜𝗻𝗳𝗶𝗻𝗶𝘁𝗲 𝗝𝘂𝗺𝗽", function(v) infJump = v; notify("SCP", v and "✅ Inf Jump ON" or "❌ Inf Jump OFF", 2) end)
+plrTab:AddSwitch("♾️  Infinite Jump", function(v) infJump = v; notify("SCP", v and "✅ Inf Jump ON" or "❌ Inf Jump OFF", 2) end)
 UIS.JumpRequest:Connect(function()
     if infJump and Hum then pcall(function() Hum:ChangeState(Enum.HumanoidStateType.Jumping) end) end
 end)
 
-plrTab:AddLabel("━━━━━━━  👻  𝗠𝗜𝗦𝗖  ━━━━━━━")
+plrTab:AddLabel("━━━━━━━  👻  MISC  ━━━━━━━")
 local noclip = false
-plrTab:AddSwitch("👻  𝗡𝗼𝗰𝗹𝗶𝗽", function(v) noclip = v; notify("SCP", v and "✅ Noclip ON" or "❌ Noclip OFF", 2) end)
+plrTab:AddSwitch("👻  Noclip", function(v) noclip = v; notify("SCP", v and "✅ Noclip ON" or "❌ Noclip OFF", 2) end)
 RunSvc.Stepped:Connect(function()
     if noclip and Char then
         for _,p in pairs(Char:GetDescendants()) do
@@ -330,27 +330,27 @@ end)
 -- ══════════════════════════════════════════
 --  TELEPORT TAB
 -- ══════════════════════════════════════════
-local tpTab,_ = win:AddTab("🗺️  𝗧𝗲𝗹𝗲𝗽𝗼𝗿𝘁")
-tpTab:AddLabel("━━━━━━━  📍  𝗔𝗥𝗘𝗔 𝗧𝗘𝗟𝗘𝗣𝗢𝗥𝗧  ━━━━━━━")
+local tpTab,_ = win:AddTab("🗺️  Teleport")
+tpTab:AddLabel("━━━━━━━  📍  AREA TELEPORT  ━━━━━━━")
 
 local selPlace = nil
-tpTab:AddDropdown("📍  𝗦𝗲𝗹𝗲𝗰𝘁 𝗔𝗿𝗲𝗮", listPlaces, function(v) selPlace = v end)
-tpTab:AddButton("🚀  𝗧𝗲𝗹𝗲𝗽𝗼𝗿𝘁 𝘁𝗼 𝗔𝗿𝗲𝗮", function()
+tpTab:AddDropdown("📍  Select Area", listPlaces, function(v) selPlace = v end)
+tpTab:AddButton("🚀  Teleport to Area", function()
     if selPlace then TravelToArea(selPlace); notify("SCP","🚀 Teleporting to "..selPlace,3)
     else notify("SCP","❌ Select an area first!",3) end
 end)
 
-tpTab:AddLabel("━━━━━━━  🌍  𝗪𝗢𝗥𝗟𝗗 𝗧𝗘𝗟𝗘𝗣𝗢𝗥𝗧  ━━━━━━━")
-tpTab:AddButton("🏙️  𝗖𝗶𝘁𝘆", function() TeleSvc:Teleport(3101667897, LP); notify("SCP","🏙️ Teleporting to City",3) end)
-tpTab:AddButton("🌌  𝗦𝗽𝗮𝗰𝗲", function() TeleSvc:Teleport(3232996272, LP); notify("SCP","🌌 Teleporting to Space",3) end)
-tpTab:AddButton("🏜️  𝗗𝗲𝘀𝗲𝗿𝘁", function() TeleSvc:Teleport(3276265788, LP); notify("SCP","🏜️ Teleporting to Desert",3) end)
+tpTab:AddLabel("━━━━━━━  🌍  WORLD TELEPORT  ━━━━━━━")
+tpTab:AddButton("🏙️  City", function() TeleSvc:Teleport(3101667897, LP); notify("SCP","🏙️ Teleporting to City",3) end)
+tpTab:AddButton("🌌  Space", function() TeleSvc:Teleport(3232996272, LP); notify("SCP","🌌 Teleporting to Space",3) end)
+tpTab:AddButton("🏜️  Desert", function() TeleSvc:Teleport(3276265788, LP); notify("SCP","🏜️ Teleporting to Desert",3) end)
 
-tpTab:AddLabel("━━━━━━━  👤  𝗣𝗟𝗔𝗬𝗘𝗥 𝗧𝗘𝗟𝗘𝗣𝗢𝗥𝗧  ━━━━━━━")
+tpTab:AddLabel("━━━━━━━  👤  PLAYER TELEPORT  ━━━━━━━")
 local playerNames = {}
 for _,p in pairs(Players:GetPlayers()) do if p ~= LP then table.insert(playerNames, p.Name) end end
 local selPlayer = nil
-tpTab:AddDropdown("👤  𝗦𝗲𝗹𝗲𝗰𝘁 𝗣𝗹𝗮𝘆𝗲𝗿", playerNames, function(v) selPlayer = v end)
-tpTab:AddButton("🚀  𝗧𝗲𝗹𝗲𝗽𝗼𝗿𝘁 𝘁𝗼 𝗣𝗹𝗮𝘆𝗲𝗿", function()
+tpTab:AddDropdown("👤  Select Player", playerNames, function(v) selPlayer = v end)
+tpTab:AddButton("🚀  Teleport to Player", function()
     if selPlayer and Players:FindFirstChild(selPlayer) then
         local tChar = Players[selPlayer].Character
         if tChar and tChar:FindFirstChild("HumanoidRootPart") then
@@ -363,13 +363,13 @@ end)
 -- ══════════════════════════════════════════
 --  SERVER TAB
 -- ══════════════════════════════════════════
-local srvTab,_ = win:AddTab("🖥️  𝗦𝗲𝗿𝘃𝗲𝗿")
-srvTab:AddLabel("━━━━━━━  🖥️  𝗦𝗘𝗥𝗩𝗘𝗥  ━━━━━━━")
-srvTab:AddLabel("🆔  𝗝𝗼𝗯𝗜𝗗   "..game.JobId:sub(1,25).."...")
-srvTab:AddLabel("📍  𝗣𝗹𝗮𝗰𝗲𝗜𝗗   "..game.PlaceId)
-srvTab:AddButton("📋  𝗖𝗼𝗽𝘆 𝗝𝗼𝗯 𝗜𝗗", function() setclipboard(game.JobId); notify("SCP","✅ JobID Copied!",3) end)
-srvTab:AddButton("🔄  𝗥𝗲𝗷𝗼𝗶𝗻", function() TeleSvc:Teleport(game.PlaceId, LP) end)
-srvTab:AddButton("🔀  𝗛𝗼𝗽 𝗦𝗲𝗿𝘃𝗲𝗿", function()
+local srvTab,_ = win:AddTab("🖥️  Server")
+srvTab:AddLabel("━━━━━━━  🖥️  SERVER  ━━━━━━━")
+srvTab:AddLabel("🆔  JobID   "..game.JobId:sub(1,25).."...")
+srvTab:AddLabel("📍  PlaceID   "..game.PlaceId)
+srvTab:AddButton("📋  Copy Job ID", function() setclipboard(game.JobId); notify("SCP","✅ JobID Copied!",3) end)
+srvTab:AddButton("🔄  Rejoin", function() TeleSvc:Teleport(game.PlaceId, LP) end)
+srvTab:AddButton("🔀  Hop Server", function()
     local ok,res = pcall(function()
         local servers = game:GetService("HttpService"):JSONDecode(
             game:HttpGet("https://games.roblox.com/v1/games/"..game.PlaceId.."/servers/Public?sortOrder=Asc&limit=100")
@@ -386,4 +386,4 @@ srvTab:AddButton("🔀  𝗛𝗼𝗽 𝗦𝗲𝗿𝘃𝗲𝗿", function()
 end)
 
 farmTab:Show()
-notify("SCP HUB","⚡ 𝗟𝗲𝗴𝗲𝗻𝗱𝘀 𝗼𝗳 𝗦𝗽𝗲𝗲𝗱 𝗟𝗼𝗮𝗱𝗲𝗱! 𝗥𝗦𝗵𝗶𝗳𝘁 𝘁𝗼 𝘁𝗼𝗴𝗴𝗹𝗲 👑",5)
+notify("SCP HUB","⚡ Legends of Speed Loaded! RShift to toggle 👑",5)
