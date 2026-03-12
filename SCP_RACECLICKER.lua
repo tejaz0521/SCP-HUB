@@ -53,12 +53,12 @@ local function checkKey(e) for _,v in pairs(getKeys())do if v==e then return tru
 
 -- KEY SYSTEM (required every execution)
 local keyPassed=false
-local kW,kF=library:AddWindow("🔑 SCP HUB — Key",{main_color=Color3.fromRGB(0,100,220),title_bar={Color3.fromRGB(0,120,240),Color3.fromRGB(0,50,120)},background={Color3.fromRGB(3,8,18)},background_transparency=0,min_size=Vector2.new(600,160),can_resize=false})
-local kt,_=kW:AddTab("🔑  Key"); kt:AddLabel("⚡  𝗦𝗖𝗣 𝗛𝗨𝗕  •  𝗥𝗮𝗰𝗲 𝗖𝗹𝗶𝗰𝗸𝗲𝗿  •  𝗧𝗘𝗝𝗔𝗭"); kt:AddLabel("🔑  𝗚𝗲𝘁 𝗸𝗲𝘆 𝗮𝘁  discord.gg/KDx3D8hARN")
-local stL=kt:AddLabel("📋  𝗣𝗮𝘀𝘁𝗲 𝗸𝗲𝘆 𝗯𝗲𝗹𝗼𝘄 𝘁𝗵𝗲𝗻 𝗽𝗿𝗲𝘀𝘀 𝗘𝗻𝘁𝗲𝗿")
+local kW,kF=library:AddWindow("🔑 SCP HUB — Key",{main_color=Color3.fromRGB(0,100,220),title_bar={Color3.fromRGB(0,120,240),Color3.fromRGB(0,50,120)},background={Color3.fromRGB(3,8,18)},background_transparency=0,min_size=Vector2.new(440,150),can_resize=false})
+local kt,_=kW:AddTab("🔑  Key"); kt:AddLabel("⚡  SCP HUB  •  Race Clicker  •  TEJAZ"); kt:AddLabel("🔑  Get key at  discord.gg/KDx3D8hARN")
+local stL=kt:AddLabel("📋  Paste key below then press Enter")
 kt:AddTextBox("Paste key here...",function(v) if checkKey(v)then stL.Text="✅ Accepted!"; keyPassed=true else stL.Text="❌ Wrong key!" end end,{clear=true})
 kt:AddButton("💬  Copy Discord",function() setclipboard("https://discord.gg/KDx3D8hARN"); notify("SCP","✅ Copied!",3) end)
-kt:AddButton("🔑  𝗚𝗲𝘁 𝗙𝗿𝗲𝗲 𝗞𝗲𝘆", function() setclipboard("https://discord.gg/KDx3D8hARN"); notify("SCP","🔑 Discord copied! Join to get key 👑",4) end)
+kt:AddButton("🔑  Get Free Key", function() setclipboard("https://discord.gg/KDx3D8hARN"); notify("SCP","🔑 Discord copied! Join to get key 👑",4) end)
 injectSCPLogo(kF)
 kt:Show()
 repeat task.wait(0.5) until keyPassed; kF:Destroy()
@@ -68,10 +68,10 @@ local win,winF=library:AddWindow("⚡ SCP HUB  |  Race Clicker  |  TEJAZ",WIN_CF
 task.defer(function() injectSCPLogo(winF) end)
 
 -- INFO TAB
-local infoTab,_=win:AddTab("📋  𝗜𝗻𝗳𝗼")
-infoTab:AddLabel("━━━━━━━  ⚡  𝗦𝗖𝗣 𝗛𝗨𝗕  •  𝗥𝗔𝗖𝗘 𝗖𝗟𝗜𝗖𝗞𝗘𝗥  ━━━━━━━")
-infoTab:AddLabel("👑  𝗔𝘂𝘁𝗵𝗼𝗿  TEJAZ   💎  𝗩𝗲𝗿𝘀𝗶𝗼𝗻  4.5")
-infoTab:AddLabel("💬  discord.gg/KDx3D8hARN   🔄  𝗧𝗼𝗴𝗴𝗹𝗲  RShift")
+local infoTab,_=win:AddTab("📋  Info")
+infoTab:AddLabel("━━━━━━━  ⚡  SCP HUB  •  RACE CLICKER  ━━━━━━━")
+infoTab:AddLabel("👑  Author  TEJAZ   💎  Version  4.5")
+infoTab:AddLabel("💬  discord.gg/KDx3D8hARN   🔄  Toggle  RShift")
 infoTab:AddButton("💬  Copy Discord",function() setclipboard("https://discord.gg/KDx3D8hARN"); notify("SCP","✅ Copied!",3) end)
 
 -- FARM TAB
@@ -99,7 +99,7 @@ farmTab:AddSwitch("🛒  Auto Buy Upgrades",function(v) getgenv().scpBuy=v; if v
 farmTab:AddSwitch("🔄  Auto Prestige/Rebirth",function(v) getgenv().scpPres=v; if v then task.spawn(function() while getgenv().scpPres do pcall(function() for _,r in pairs(RS:GetDescendants())do if r:IsA("RemoteEvent")and(r.Name:lower():find("prestige")or r.Name:lower():find("rebirth"))then r:FireServer()end end end); task.wait(3)end end)end end)
 
 -- SPEED TAB
-local spdTab,_=win:AddTab("⚡  𝗦𝗽𝗲𝗲𝗱")
+local spdTab,_=win:AddTab("⚡  Speed")
 spdTab:AddLabel("━━━━━━━  🏃 MOVEMENT  ━━━━━━━")
 spdTab:AddSwitch("⚡  Speed (100)",function(v) if LP.Character and LP.Character:FindFirstChild("Humanoid")then LP.Character.Humanoid.WalkSpeed=v and 100 or 16 end end)
 spdTab:AddSwitch("🚀  Ultra Speed (250)",function(v) if LP.Character and LP.Character:FindFirstChild("Humanoid")then LP.Character.Humanoid.WalkSpeed=v and 250 or 16 end end)
