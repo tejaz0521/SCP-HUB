@@ -28,13 +28,13 @@ local injectSCPLogo = _G.injectSCPLogo or function(wFrame)
         if not tog then return end
         pcall(function()
             tog.Image="rbxassetid://3926305904"
-            tog.ImageColor3=Color3.fromRGB(255,60,60)
+            tog.ImageColor3=Color3.fromRGB(180,80,255)
             tog.Size=UDim2.new(0,18,0,18)
             local ex=bar:FindFirstChild("SCPLogo"); if ex then ex:Destroy() end
             local lbl=Instance.new("TextLabel")
             lbl.Name="SCPLogo"; lbl.Size=UDim2.new(0,32,0,14)
             lbl.Position=UDim2.new(0,22,0,2); lbl.BackgroundTransparency=1
-            lbl.Text="SCP"; lbl.TextColor3=Color3.fromRGB(255,80,80)
+            lbl.Text="SCP"; lbl.TextColor3=Color3.fromRGB(160,60,240)
             lbl.TextSize=11; lbl.Font=Enum.Font.FredokaOne
             lbl.ZIndex=tog.ZIndex+1; lbl.Parent=bar
         end)
@@ -54,32 +54,33 @@ local function checkKey(e) for _,v in pairs(getKeys())do if v==e then return tru
 
 -- KEY SYSTEM (required every execution)
 local keyPassed=false
-local kW,kF=library:AddWindow("🔑 SCP HUB — Key",{main_color=Color3.fromRGB(185,30,30),title_bar={Color3.fromRGB(185,30,30),Color3.fromRGB(100,10,10)},background={Color3.fromRGB(18,5,5)},background_transparency=0,min_size=Vector2.new(600,160),can_resize=false})
-local kt,_=kW:AddTab("🔑  Key"); kt:AddLabel("⚡ SCP HUB | Rivals | Made by TEJAZ"); kt:AddLabel("🔑  Get key at: discord.gg/nDSy4jdVDc")
-local stL=kt:AddLabel("📋  Paste key below then press Enter")
-kt:AddTextBox("Paste key here...",function(v) if checkKey(v)then stL.Text="✅ Accepted! Loading..."; keyPassed=true else stL.Text="❌ Wrong key! discord.gg/nDSy4jdVDc" end end,{clear=true})
-kt:AddButton("💬  Copy Discord",function() setclipboard("https://discord.gg/nDSy4jdVDc"); notify("SCP","✅ Copied!",3) end)
+local kW,kF=library:AddWindow("🔑 SCP HUB — Key",{main_color=Color3.fromRGB(100,20,180),title_bar={Color3.fromRGB(110,25,200),Color3.fromRGB(55,5,100)},background={Color3.fromRGB(10,5,18)},background_transparency=0,min_size=Vector2.new(600,160),can_resize=false})
+local kt,_=kW:AddTab("🔑  Key"); kt:AddLabel("⚡  𝗦𝗖𝗣 𝗛𝗨𝗕  •  𝗥𝗶𝘃𝗮𝗹𝘀  •  𝗧𝗘𝗝𝗔𝗭"); kt:AddLabel("🔑  𝗚𝗲𝘁 𝗸𝗲𝘆 𝗮𝘁  discord.gg/KDx3D8hARN")
+local stL=kt:AddLabel("📋  𝗣𝗮𝘀𝘁𝗲 𝗸𝗲𝘆 𝗯𝗲𝗹𝗼𝘄 𝘁𝗵𝗲𝗻 𝗽𝗿𝗲𝘀𝘀 𝗘𝗻𝘁𝗲𝗿")
+kt:AddTextBox("Paste key here...",function(v) if checkKey(v)then stL.Text="✅ Accepted! Loading..."; keyPassed=true else stL.Text="❌ Wrong key! discord.gg/KDx3D8hARN" end end,{clear=true})
+kt:AddButton("💬  Copy Discord",function() setclipboard("https://discord.gg/KDx3D8hARN"); notify("SCP","✅ Copied!",3) end)
+kt:AddButton("🔑  𝗚𝗲𝘁 𝗙𝗿𝗲𝗲 𝗞𝗲𝘆", function() setclipboard("https://discord.gg/KDx3D8hARN"); notify("SCP","🔑 Discord copied! Join to get key 👑",4) end)
 injectSCPLogo(kF)
 kt:Show()
 repeat task.wait(0.5) until keyPassed; kF:Destroy()
 
-local WIN_CFG={main_color=Color3.fromRGB(185,30,30),title_bar={Color3.fromRGB(200,35,35),Color3.fromRGB(100,10,10)},background={Color3.fromRGB(18,5,5)},background_transparency=0,min_size=Vector2.new(600,280),toggle_key=Enum.KeyCode.RightShift,can_resize=true}
+local WIN_CFG={main_color=Color3.fromRGB(100,20,180),title_bar={Color3.fromRGB(110,25,200),Color3.fromRGB(55,5,100)},background={Color3.fromRGB(10,5,18)},background_transparency=0,min_size=Vector2.new(600,280),toggle_key=Enum.KeyCode.RightShift,can_resize=true}
 local win,winF=library:AddWindow("⚡ SCP HUB  |  Rivals  |  TEJAZ",WIN_CFG)
 task.defer(function() injectSCPLogo(winF) end)
 
 -- INFO TAB
-local infoTab,_=win:AddTab("📋  Info")
-infoTab:AddLabel("━━━━━━━  ⚡ SCP HUB | RIVALS  ━━━━━━━")
-infoTab:AddLabel("👑  Author:   TEJAZ"); infoTab:AddLabel("💎  Version:  4.5"); infoTab:AddLabel("🔄  Toggle:   RightShift")
-infoTab:AddLabel("💬  Discord:  discord.gg/nDSy4jdVDc")
+local infoTab,_=win:AddTab("📋  𝗜𝗻𝗳𝗼")
+infoTab:AddLabel("━━━━━━━  ⚡  𝗦𝗖𝗣 𝗛𝗨𝗕  •  𝗥𝗜𝗩𝗔𝗟𝗦  ━━━━━━━")
+infoTab:AddLabel("👑  𝗔𝘂𝘁𝗵𝗼𝗿   TEJAZ"); infoTab:AddLabel("💎  𝗩𝗲𝗿𝘀𝗶𝗼𝗻   4.5"); infoTab:AddLabel("🔄  𝗧𝗼𝗴𝗴𝗹𝗲   RightShift")
+infoTab:AddLabel("💬  𝗗𝗶𝘀𝗰𝗼𝗿𝗱  discord.gg/KDx3D8hARN")
 infoTab:AddLabel("━━━━━━━  📊 SERVER INFO  ━━━━━━━")
 local plrCount=infoTab:AddLabel("🌐  Players: "..#Players:GetPlayers())
 local pingLbl=infoTab:AddLabel("📶  Ping: calculating...")
 task.spawn(function() while task.wait(2)do pcall(function() plrCount.Text="🌐  Players: "..#Players:GetPlayers(); local s=tick(); RunSvc.Heartbeat:Wait(); pingLbl.Text="📶  Ping: "..math.floor((tick()-s)*1000).."ms" end) end end)
-infoTab:AddButton("💬  Copy Discord",function() setclipboard("https://discord.gg/nDSy4jdVDc"); notify("SCP","✅ Copied!",3) end)
+infoTab:AddButton("💬  Copy Discord",function() setclipboard("https://discord.gg/KDx3D8hARN"); notify("SCP","✅ Copied!",3) end)
 
 -- AIMBOT TAB
-local aimTab,_=win:AddTab("🎯  Aimbot")
+local aimTab,_=win:AddTab("🎯  𝗔𝗶𝗺𝗯𝗼𝘁")
 local aimbotOn=false; local fov=150; local aimPart="Head"
 aimTab:AddLabel("━━━━━━━  🎯 AIMBOT  ━━━━━━━")
 local fovLbl=aimTab:AddLabel("📐  FOV: 150")
@@ -118,7 +119,7 @@ plrTab:AddSwitch("🔆  Fullbright",function(v) game.Lighting.Brightness=v and 1
 plrTab:AddSwitch("🖥️  Low Graphics",function(v) game.Lighting.GlobalShadows=not v; settings().Rendering.QualityLevel=v and"Level01"or"Level21" end)
 
 -- VISUALS TAB
-local visTab,_=win:AddTab("👁️  Visuals")
+local visTab,_=win:AddTab("👁️  𝗩𝗶𝘀𝘂𝗮𝗹𝘀")
 visTab:AddLabel("━━━━━━━  👁️ ESP  ━━━━━━━")
 visTab:AddSwitch("📦  Box ESP",function(v)
     getgenv().scpBoxESP=v; if v then task.spawn(function() while getgenv().scpBoxESP do
@@ -161,11 +162,11 @@ killTab:AddTextBox("Spy camera target",function(v) scN=v end,{clear=false})
 killTab:AddSwitch("📹  Spy Camera",function(v) if v then getgenv().scpSC=true; task.spawn(function() while getgenv().scpSC do local p=findPlayer(scN); if p and p.Character and p.Character:FindFirstChild("Humanoid")then workspace.CurrentCamera.CameraSubject=p.Character.Humanoid end; task.wait(0.25)end end) else getgenv().scpSC=false; if LP.Character and LP.Character:FindFirstChild("Humanoid")then workspace.CurrentCamera.CameraSubject=LP.Character.Humanoid end end end)
 
 -- SETTINGS TAB
-local setTab,_=win:AddTab("⚙️  Settings")
+local setTab,_=win:AddTab("⚙️  𝗦𝗲𝘁𝘁𝗶𝗻𝗴𝘀")
 setTab:AddLabel("━━━━━━━  ⚙️ OPTIONS  ━━━━━━━")
 setTab:AddSwitch("🖥️  Low Graphics",function(v) game.Lighting.GlobalShadows=not v; game.Lighting.FogEnd=v and 9e9 or 1e5; settings().Rendering.QualityLevel=v and"Level01"or"Level21" end)
 setTab:AddButton("🛡️  Anti AFK",function() pcall(function()loadstring(game:HttpGet("https://raw.githubusercontent.com/hassanxzayn-lua/Anti-afk/main/antiafkbyhassanxzyn"))()end); notify("SCP","🛡️ ON",3) end)
-setTab:AddButton("💬  Copy Discord",function() setclipboard("https://discord.gg/nDSy4jdVDc"); notify("SCP","✅ Copied!",3) end)
+setTab:AddButton("💬  Copy Discord",function() setclipboard("https://discord.gg/KDx3D8hARN"); notify("SCP","✅ Copied!",3) end)
 setTab:AddButton("🗑️  Clear Saved Key",function() if writefile then writefile("SCP_HUB/key.txt","")end; notify("SCP","🗑️ Key cleared",3) end)
 
 infoTab:Show()
