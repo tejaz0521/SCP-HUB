@@ -71,12 +71,12 @@ local win,winF=library:AddWindow("⚡ SCP HUB  |  Game Selector  |  TEJAZ",{
 injectSCPLogo(winF)
 
 local selTab,_=win:AddTab("🎮  Select Game")
-selTab:AddLabel("⚡  𝗦𝗖𝗣 𝗛𝗨𝗕  •  𝗚𝗔𝗠𝗘 𝗦𝗘𝗟𝗘𝗖𝗧𝗢𝗥  ⚡")
-selTab:AddLabel("👑  𝗔𝘂𝘁𝗵𝗼𝗿  TEJAZ   💎  𝗩𝗲𝗿𝘀𝗶𝗼𝗻  4.5")
-selTab:AddLabel("💬  discord.gg/KDx3D8hARN   🔄  𝗧𝗼𝗴𝗴𝗹𝗲  RightShift")
+selTab:AddLabel("⚡  SCP HUB  •  GAME SELECTOR  ⚡")
+selTab:AddLabel("👑  Author  TEJAZ   💎  Version  4.5")
+selTab:AddLabel("💬  discord.gg/KDx3D8hARN   🔄  Toggle  RightShift")
 
-selTab:AddLabel("━━━━━━━  🏋️  𝗠𝗨𝗦𝗖𝗟𝗘 𝗟𝗘𝗚𝗘𝗡𝗗𝗦  ━━━━━━━")
-selTab:AddButton("🆓  𝗟𝗼𝗮𝗱 𝗙𝗥𝗘𝗘 𝗦𝗰𝗿𝗶𝗽𝘁  —  Muscle Legends",function()
+selTab:AddLabel("━━━━━━━  🏋️  MUSCLE LEGENDS  ━━━━━━━")
+selTab:AddButton("🆓  Load FREE Script  —  Muscle Legends",function()
     notify("SCP","⚡ Loading...",2)
     task.spawn(function()
         pcall(function() winF.Visible=false end)
@@ -84,7 +84,7 @@ selTab:AddButton("🆓  𝗟𝗼𝗮𝗱 𝗙𝗥𝗘𝗘 𝗦𝗰𝗿𝗶𝗽�
         if not ok then notify("SCP","❌ "..tostring(err):sub(1,50),5) end
     end)
 end)
-selTab:AddButton("💎  𝗟𝗼𝗮𝗱 𝗣𝗔𝗜𝗗 𝗦𝗰𝗿𝗶𝗽𝘁  —  Muscle Legends",function()
+selTab:AddButton("💎  Load PAID Script  —  Muscle Legends",function()
     if not isWhitelisted() then notify("SCP","❌ Not whitelisted! Join discord",4); return end
     notify("SCP","💎 Loading PAID...",2)
     task.spawn(function()
@@ -94,8 +94,8 @@ selTab:AddButton("💎  𝗟𝗼𝗮𝗱 𝗣𝗔𝗜𝗗 𝗦𝗰𝗿𝗶𝗽�
     end)
 end)
 
-selTab:AddLabel("━━━━━━━  ⚔️  𝗥𝗜𝗩𝗔𝗟𝗦  ━━━━━━━")
-selTab:AddButton("⚔️  𝗟𝗼𝗮𝗱 𝗥𝗶𝘃𝗮𝗹𝘀 𝗦𝗰𝗿𝗶𝗽𝘁",function()
+selTab:AddLabel("━━━━━━━  ⚔️  RIVALS  ━━━━━━━")
+selTab:AddButton("⚔️  Load Rivals Script",function()
     notify("SCP","⚔️ Loading...",2)
     task.spawn(function()
         pcall(function() winF.Visible=false end)
@@ -104,8 +104,8 @@ selTab:AddButton("⚔️  𝗟𝗼𝗮𝗱 𝗥𝗶𝘃𝗮𝗹𝘀 𝗦𝗰𝗿
     end)
 end)
 
-selTab:AddLabel("━━━━━━━  🏎️  𝗥𝗔𝗖𝗘 𝗖𝗟𝗜𝗖𝗞𝗘𝗥  ━━━━━━━")
-selTab:AddButton("🏎️  𝗟𝗼𝗮𝗱 𝗥𝗮𝗰𝗲 𝗖𝗹𝗶𝗰𝗸𝗲𝗿 𝗦𝗰𝗿𝗶𝗽𝘁",function()
+selTab:AddLabel("━━━━━━━  🏎️  RACE CLICKER  ━━━━━━━")
+selTab:AddButton("🏎️  Load Race Clicker Script",function()
     notify("SCP","🏎️ Loading...",2)
     task.spawn(function()
         pcall(function() winF.Visible=false end)
@@ -114,8 +114,8 @@ selTab:AddButton("🏎️  𝗟𝗼𝗮𝗱 𝗥𝗮𝗰𝗲 𝗖𝗹𝗶𝗰�
     end)
 end)
 
-selTab:AddLabel("━━━━━━━  🟢  𝗟𝗘𝗚𝗘𝗡𝗗𝗦 𝗢𝗙 𝗦𝗣𝗘𝗘𝗗  ━━━━━━━")
-selTab:AddButton("🟢  𝗟𝗼𝗮𝗱 𝗟𝗲𝗴𝗲𝗻𝗱𝘀 𝗼𝗳 𝗦𝗽𝗲𝗲𝗱 𝗦𝗰𝗿𝗶𝗽𝘁",function()
+selTab:AddLabel("━━━━━━━  🟢  LEGENDS OF SPEED  ━━━━━━━")
+selTab:AddButton("🟢  Load Legends of Speed Script",function()
     notify("SCP","🟢 Loading Legends of Speed...",2)
     task.spawn(function()
         pcall(function() winF.Visible=false end)
@@ -123,10 +123,10 @@ selTab:AddButton("🟢  𝗟𝗼𝗮𝗱 𝗟𝗲𝗴𝗲𝗻𝗱𝘀 𝗼𝗳 �
         if not ok then notify("SCP","❌ "..tostring(err):sub(1,50),5) end
     end)
 end)
-selTab:AddLabel("━━━━━━━  💬  𝗟𝗜𝗡𝗞𝗦  ━━━━━━━")
-selTab:AddButton("💬  𝗖𝗼𝗽𝘆 𝗗𝗶𝘀𝗰𝗼𝗿𝗱 𝗟𝗶𝗻𝗸",function()
+selTab:AddLabel("━━━━━━━  💬  LINKS  ━━━━━━━")
+selTab:AddButton("💬  Copy Discord Link",function()
     setclipboard("https://discord.gg/KDx3D8hARN"); notify("SCP","✅ Discord Copied!",3)
 end)
 
 selTab:Show()
-notify("SCP HUB","✅ 𝗔𝗹𝗹 𝗿𝗲𝗮𝗱𝘆! Choose your game 👑",4)
+notify("SCP HUB","✅ All ready! Choose your game 👑",4)
