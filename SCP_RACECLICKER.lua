@@ -28,13 +28,13 @@ local injectSCPLogo = _G.injectSCPLogo or function(wFrame)
         if not tog then return end
         pcall(function()
             tog.Image="rbxassetid://3926305904"
-            tog.ImageColor3=Color3.fromRGB(255,60,60)
+            tog.ImageColor3=Color3.fromRGB(0,160,255)
             tog.Size=UDim2.new(0,18,0,18)
             local ex=bar:FindFirstChild("SCPLogo"); if ex then ex:Destroy() end
             local lbl=Instance.new("TextLabel")
             lbl.Name="SCPLogo"; lbl.Size=UDim2.new(0,32,0,14)
             lbl.Position=UDim2.new(0,22,0,2); lbl.BackgroundTransparency=1
-            lbl.Text="SCP"; lbl.TextColor3=Color3.fromRGB(255,80,80)
+            lbl.Text="SCP"; lbl.TextColor3=Color3.fromRGB(0,140,230)
             lbl.TextSize=11; lbl.Font=Enum.Font.FredokaOne
             lbl.ZIndex=tog.ZIndex+1; lbl.Parent=bar
         end)
@@ -53,25 +53,26 @@ local function checkKey(e) for _,v in pairs(getKeys())do if v==e then return tru
 
 -- KEY SYSTEM (required every execution)
 local keyPassed=false
-local kW,kF=library:AddWindow("🔑 SCP HUB — Key",{main_color=Color3.fromRGB(185,30,30),title_bar={Color3.fromRGB(185,30,30),Color3.fromRGB(100,10,10)},background={Color3.fromRGB(18,5,5)},background_transparency=0,min_size=Vector2.new(600,160),can_resize=false})
-local kt,_=kW:AddTab("🔑  Key"); kt:AddLabel("⚡ SCP HUB | Race Clicker | Made by TEJAZ"); kt:AddLabel("🔑  Get key at: discord.gg/nDSy4jdVDc")
-local stL=kt:AddLabel("📋  Paste key below then press Enter")
+local kW,kF=library:AddWindow("🔑 SCP HUB — Key",{main_color=Color3.fromRGB(0,100,220),title_bar={Color3.fromRGB(0,120,240),Color3.fromRGB(0,50,120)},background={Color3.fromRGB(3,8,18)},background_transparency=0,min_size=Vector2.new(600,160),can_resize=false})
+local kt,_=kW:AddTab("🔑  Key"); kt:AddLabel("⚡  𝗦𝗖𝗣 𝗛𝗨𝗕  •  𝗥𝗮𝗰𝗲 𝗖𝗹𝗶𝗰𝗸𝗲𝗿  •  𝗧𝗘𝗝𝗔𝗭"); kt:AddLabel("🔑  𝗚𝗲𝘁 𝗸𝗲𝘆 𝗮𝘁  discord.gg/KDx3D8hARN")
+local stL=kt:AddLabel("📋  𝗣𝗮𝘀𝘁𝗲 𝗸𝗲𝘆 𝗯𝗲𝗹𝗼𝘄 𝘁𝗵𝗲𝗻 𝗽𝗿𝗲𝘀𝘀 𝗘𝗻𝘁𝗲𝗿")
 kt:AddTextBox("Paste key here...",function(v) if checkKey(v)then stL.Text="✅ Accepted!"; keyPassed=true else stL.Text="❌ Wrong key!" end end,{clear=true})
-kt:AddButton("💬  Copy Discord",function() setclipboard("https://discord.gg/nDSy4jdVDc"); notify("SCP","✅ Copied!",3) end)
+kt:AddButton("💬  Copy Discord",function() setclipboard("https://discord.gg/KDx3D8hARN"); notify("SCP","✅ Copied!",3) end)
+kt:AddButton("🔑  𝗚𝗲𝘁 𝗙𝗿𝗲𝗲 𝗞𝗲𝘆", function() setclipboard("https://discord.gg/KDx3D8hARN"); notify("SCP","🔑 Discord copied! Join to get key 👑",4) end)
 injectSCPLogo(kF)
 kt:Show()
 repeat task.wait(0.5) until keyPassed; kF:Destroy()
 
-local WIN_CFG={main_color=Color3.fromRGB(185,30,30),title_bar={Color3.fromRGB(200,35,35),Color3.fromRGB(100,10,10)},background={Color3.fromRGB(18,5,5)},background_transparency=0,min_size=Vector2.new(600,260),toggle_key=Enum.KeyCode.RightShift,can_resize=true}
+local WIN_CFG={main_color=Color3.fromRGB(0,100,220),title_bar={Color3.fromRGB(0,120,240),Color3.fromRGB(0,50,120)},background={Color3.fromRGB(3,8,18)},background_transparency=0,min_size=Vector2.new(600,260),toggle_key=Enum.KeyCode.RightShift,can_resize=true}
 local win,winF=library:AddWindow("⚡ SCP HUB  |  Race Clicker  |  TEJAZ",WIN_CFG)
 task.defer(function() injectSCPLogo(winF) end)
 
 -- INFO TAB
-local infoTab,_=win:AddTab("📋  Info")
-infoTab:AddLabel("━━━━━━━  ⚡ SCP HUB | RACE CLICKER  ━━━━━━━")
-infoTab:AddLabel("👑  Author: TEJAZ  |  💎  Version: 4.5")
-infoTab:AddLabel("💬  Discord: discord.gg/nDSy4jdVDc  |  🔄 Toggle: RShift")
-infoTab:AddButton("💬  Copy Discord",function() setclipboard("https://discord.gg/nDSy4jdVDc"); notify("SCP","✅ Copied!",3) end)
+local infoTab,_=win:AddTab("📋  𝗜𝗻𝗳𝗼")
+infoTab:AddLabel("━━━━━━━  ⚡  𝗦𝗖𝗣 𝗛𝗨𝗕  •  𝗥𝗔𝗖𝗘 𝗖𝗟𝗜𝗖𝗞𝗘𝗥  ━━━━━━━")
+infoTab:AddLabel("👑  𝗔𝘂𝘁𝗵𝗼𝗿  TEJAZ   💎  𝗩𝗲𝗿𝘀𝗶𝗼𝗻  4.5")
+infoTab:AddLabel("💬  discord.gg/KDx3D8hARN   🔄  𝗧𝗼𝗴𝗴𝗹𝗲  RShift")
+infoTab:AddButton("💬  Copy Discord",function() setclipboard("https://discord.gg/KDx3D8hARN"); notify("SCP","✅ Copied!",3) end)
 
 -- FARM TAB
 local farmTab,_=win:AddTab("🏎️  Farm")
@@ -98,7 +99,7 @@ farmTab:AddSwitch("🛒  Auto Buy Upgrades",function(v) getgenv().scpBuy=v; if v
 farmTab:AddSwitch("🔄  Auto Prestige/Rebirth",function(v) getgenv().scpPres=v; if v then task.spawn(function() while getgenv().scpPres do pcall(function() for _,r in pairs(RS:GetDescendants())do if r:IsA("RemoteEvent")and(r.Name:lower():find("prestige")or r.Name:lower():find("rebirth"))then r:FireServer()end end end); task.wait(3)end end)end end)
 
 -- SPEED TAB
-local spdTab,_=win:AddTab("⚡  Speed")
+local spdTab,_=win:AddTab("⚡  𝗦𝗽𝗲𝗲𝗱")
 spdTab:AddLabel("━━━━━━━  🏃 MOVEMENT  ━━━━━━━")
 spdTab:AddSwitch("⚡  Speed (100)",function(v) if LP.Character and LP.Character:FindFirstChild("Humanoid")then LP.Character.Humanoid.WalkSpeed=v and 100 or 16 end end)
 spdTab:AddSwitch("🚀  Ultra Speed (250)",function(v) if LP.Character and LP.Character:FindFirstChild("Humanoid")then LP.Character.Humanoid.WalkSpeed=v and 250 or 16 end end)
@@ -107,7 +108,7 @@ spdTab:AddSwitch("♾️  Infinite Jump",function(v) getgenv().scpIJ=v; if v the
 spdTab:AddSwitch("🏎️  Max Vehicle Speed",function(v) getgenv().scpVeh=v; if v then task.spawn(function() while getgenv().scpVeh do for _,o in pairs(workspace:GetDescendants())do if o:IsA("VehicleSeat")then o.MaxSpeed=1000; o.Torque=1000 end end; task.wait(0.5)end end)end end)
 spdTab:AddSwitch("🖥️  Low Graphics",function(v) game.Lighting.GlobalShadows=not v; settings().Rendering.QualityLevel=v and"Level01"or"Level21" end)
 spdTab:AddButton("🛡️  Anti AFK",function() pcall(function()loadstring(game:HttpGet("https://raw.githubusercontent.com/hassanxzayn-lua/Anti-afk/main/antiafkbyhassanxzyn"))()end); notify("SCP","🛡️ ON",3) end)
-spdTab:AddButton("💬  Copy Discord",function() setclipboard("https://discord.gg/nDSy4jdVDc"); notify("SCP","✅ Copied!",3) end)
+spdTab:AddButton("💬  Copy Discord",function() setclipboard("https://discord.gg/KDx3D8hARN"); notify("SCP","✅ Copied!",3) end)
 
 infoTab:Show()
 notify("SCP HUB","🏎️ Race Clicker Loaded! RShift to toggle 👑",5)
