@@ -111,7 +111,7 @@ local kWin, kFrame = library:AddWindow("🔑 SCP HUB — Key System", {
 })
 local kt,_ = kWin:AddTab("🔑  Key")
 kt:AddLabel("⚡ SCP HUB  |  Muscle Legends V5  |  Made by TEJAZ")
-kt:AddLabel("🔑  Get your FREE key at:  discord.gg/nDSy4jdVDc")
+kt:AddLabel("🔑  Get your FREE key at:  discord.gg/KDx3D8hARN")
 local stLbl = kt:AddLabel("📋  Paste your key below then press Enter")
 kt:AddTextBox("Paste key here then press Enter...", function(v)
     if checkKey(v) then
