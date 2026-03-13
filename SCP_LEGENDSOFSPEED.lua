@@ -208,10 +208,11 @@ farmTab:AddLabel("━━━━━━━  🌀  AUTO ORB FARM  ━━━━━━
 
 -- Orb dropdown — hardcoded real names from game source
 local selectedOrb = "Orange Orb"
-farmTab:AddDropdown("🔮  Select Orb", ORB_LIST, function(v)
+local orbDrop,_ = farmTab:AddDropdown("🔮  Select Orb", function(v)
     selectedOrb = v
     notify("SCP","🔮 Selected: "..tostring(v),2)
 end)
+for _,orb in ipairs(ORB_LIST) do orbDrop:Add(orb) end
 
 local farmMult = 50
 farmTab:AddSlider("⚡  Farm Multiplier", {min=1,max=200,default=50}, function(v) farmMult = v end)
@@ -473,7 +474,8 @@ for _,p in pairs(Players:GetPlayers()) do
     if p ~= LP then table.insert(playerNames, p.Name) end
 end
 local selPlayer = nil
-tpTab:AddDropdown("👤  Select Player", playerNames, function(v) selPlayer = v end)
+local plrDrop,_ = tpTab:AddDropdown("👤  Select Player", function(v) selPlayer = v end)
+for _,pn in ipairs(playerNames) do plrDrop:Add(pn) end
 tpTab:AddButton("🚀  Teleport to Player", function()
     if selPlayer then
         local p = Players:FindFirstChild(selPlayer)
