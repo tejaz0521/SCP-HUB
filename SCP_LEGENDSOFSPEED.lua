@@ -63,81 +63,37 @@ end
 -- ══════════════════════════════════════════
 --  REMOTES
 -- ══════════════════════════════════════════
-local rEvents          = RS:WaitForChild("rEvents")
-local orbEvent         = rEvents:WaitForChild("orbEvent")
-local rebirthEvent     = rEvents:WaitForChild("rebirthEvent")
-local raceEvent        = rEvents:WaitForChild("raceEvent")
-local freeGiftRemote   = rEvents:WaitForChild("freeGiftClaimRemote")
-local areaTravelRemote = rEvents:WaitForChild("areaTravelRemote")
+local rEvents           = RS:WaitForChild("rEvents")
+local orbEvent          = rEvents:WaitForChild("orbEvent")
+local rebirthEvent      = rEvents:WaitForChild("rebirthEvent")
+local raceEvent         = rEvents:WaitForChild("raceEvent")
+local freeGiftRemote    = rEvents:WaitForChild("freeGiftClaimRemote")
+local fortuneWheelRemote= rEvents:WaitForChild("openFortuneWheelRemote")
+local codeRemote        = rEvents:WaitForChild("codeRemote")
+local tradingEvent      = rEvents:WaitForChild("tradingEvent")
+local changeSpeedRemote = rEvents:WaitForChild("changeSpeedJumpRemote")
 
 -- ══════════════════════════════════════════
---  DATA — loaded SYNCHRONOUSLY before UI
+--  HARDCODED DATA (from game source)
 -- ══════════════════════════════════════════
+local ORB_LIST = {
+    "Blue Orb", "Ethereal Orb", "Gem",
+    "Infernal Gem", "Orange Orb", "Red Orb", "Yellow Orb"
+}
 
--- ORBS: wait for folder then read names
-local listOrbs = {}
-local orbsFolder = RS:WaitForChild("Orbs", 10)
-if orbsFolder then
-    for _,v in pairs(orbsFolder:GetChildren()) do
-        table.insert(listOrbs, v.Name)
-    end
-end
--- Fallback if folder empty or missing
-if #listOrbs == 0 then
-    listOrbs = {"Bronze Orb","Silver Orb","Gold Orb","Diamond Orb",
-                "Emerald Orb","Ruby Orb","Sapphire Orb","Amethyst Orb",
-                "Obsidian Orb","Rainbow Orb","Cosmic Orb","Shadow Orb"}
-end
+local CODES = {
+    "swiftjungle1000","speedchampion000","racer300",
+    "SPRINT250","hyper250","legends500","sparkles300","Launch200"
+}
 
--- PLACES: wait then read
-local listPlaces = {}
-local orbFolder = workspace:FindFirstChild("orbFolder")
-if not orbFolder then orbFolder = workspace:WaitForChild("orbFolder", 10) end
-if orbFolder then
-    for _,v in pairs(orbFolder:GetChildren()) do
-        if not v.Name:find("Race") then table.insert(listPlaces, v.Name) end
-    end
-end
-
--- PLAYERS
-local playerNames = {}
-for _,p in pairs(Players:GetPlayers()) do
-    if p ~= LP then table.insert(playerNames, p.Name) end
-end
-
--- ══════════════════════════════════════════
---  HELPERS
--- ══════════════════════════════════════════
-local function getCurrentMap()
-    local ok,v = pcall(function() return LP.currentMap.Value end)
-    return ok and tostring(v) or "Unknown"
-end
-local function CollectOrb(orb)
-    pcall(function() orbEvent:FireServer("collectOrb", orb, getCurrentMap()) end)
-end
-local function DoRebirth()
-    pcall(function() rebirthEvent:FireServer("rebirthRequest") end)
-end
-local function getAreaCircle(name)
-    for _,v in pairs(workspace:WaitForChild("areaCircles"):GetChildren()) do
-        if v:FindFirstChild("areaName") and v.areaName.Value == name then return v end
-    end
-end
-local function TravelToArea(area)
-    pcall(function() areaTravelRemote:InvokeServer("travelToArea", getAreaCircle(area)) end)
-end
-local function ClaimGift(val)
-    pcall(function() freeGiftRemote:InvokeServer("claimGift", val) end)
-end
-local function getHighestGift()
-    local r = 0
-    pcall(function()
-        for _,v in pairs(LP:WaitForChild("freeGiftsClaimedFolder"):GetChildren()) do
-            if tonumber(v.Name) and tonumber(v.Name) > r then r = tonumber(v.Name) end
-        end
-    end)
-    return r
-end
+local TELEPORTS = {
+    {name="Spawn City",       cframe=CFrame.new(-557.49, 4.13, 417.61)},
+    {name="Frost Course",     cframe=CFrame.new(2022.68, 0.93, 984.48)},
+    {name="Pirate Course",    cframe=CFrame.new(-1611.52, 18.60, 4939.55)},
+    {name="Snow City",        cframe=CFrame.new(-866.39, 4.18, 2165.71)},
+    {name="Magma City",       cframe=CFrame.new(1618.00, 4.23, 4328.55)},
+    {name="Legends Highway",  cframe=CFrame.new(3742.88, 71.71, 5581.55)},
+}
 
 -- Anti AFK
 pcall(function()
@@ -153,18 +109,12 @@ end)
 --  KEY SYSTEM
 -- ══════════════════════════════════════════
 local KEY_URL = "https://pastebin.com/raw/n7UWskEA"
-local function getKeys()
-    local ok,res = pcall(function() return game:HttpGet(KEY_URL) end)
-    if not ok then return {} end
-    local k = {}
-    for line in res:gmatch("[^\n]+") do
-        local t = line:match("^%s*(.-)%s*$")
-        if t ~= "" then table.insert(k, t) end
-    end
-    return k
-end
 local function checkKey(e)
-    for _,v in pairs(getKeys()) do if v == e then return true end end
+    local ok,res = pcall(function() return game:HttpGet(KEY_URL) end)
+    if not ok then return false end
+    for line in res:gmatch("[^\n]+") do
+        if line:match("^%s*(.-)%s*$") == e then return true end
+    end
     return false
 end
 
@@ -189,7 +139,7 @@ kt:AddTextBox("Enter key here...", function(v)
         stL.Text = "❌  Wrong key! Get it at  discord.gg/KDx3D8hARN"
     end
 end, {clear=true})
-kt:AddButton("🔑  Get Key — Copy Discord Link", function()
+kt:AddButton("🔑  Get Key — Copy Discord", function()
     setclipboard("https://discord.gg/KDx3D8hARN")
     notify("SCP HUB","🔑 Discord copied! Join to get your key.",4)
 end)
@@ -221,11 +171,9 @@ infoTab:AddLabel("👑  Author      TEJAZ")
 infoTab:AddLabel("💎  Version     2.0")
 infoTab:AddLabel("🔄  Toggle      RightShift")
 infoTab:AddLabel("💬  Discord     discord.gg/KDx3D8hARN")
-infoTab:AddLabel("🔮  Orbs loaded: "..#listOrbs)
 infoTab:AddLabel("━━━━━━━  📊  LIVE STATS  ━━━━━━━")
 local pingLbl = infoTab:AddLabel("📶  Ping        loading...")
 local plrLbl  = infoTab:AddLabel("🌐  Players     "..#Players:GetPlayers())
-local mapLbl  = infoTab:AddLabel("🗺️  Map         loading...")
 local fpsLbl  = infoTab:AddLabel("🖥️  FPS         loading...")
 infoTab:AddLabel("━━━━━━━  🔗  LINKS  ━━━━━━━")
 infoTab:AddButton("💬  Copy Discord", function()
@@ -248,7 +196,6 @@ task.spawn(function()
         local ping = game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()
         pingLbl.Text = "📶  Ping        "..ping.."ms"
         plrLbl.Text  = "🌐  Players     "..#Players:GetPlayers()
-        mapLbl.Text  = "🗺️  Map         "..getCurrentMap()
         fpsLbl.Text  = "🖥️  FPS         "..fps
     end) end
 end)
@@ -257,74 +204,76 @@ end)
 --  FARM TAB
 -- ══════════════════════════════════════════
 local farmTab,_ = win:AddTab("🌀  Farm")
-farmTab:AddLabel("━━━━━━━  🌀  AUTO FARM  ━━━━━━━")
-farmTab:AddLabel("✅  "..#listOrbs.." orbs loaded and ready to select!")
+farmTab:AddLabel("━━━━━━━  🌀  AUTO ORB FARM  ━━━━━━━")
 
--- ── Orb selection ──
-local selectedOrbs = {}
-
--- Dropdown is built NOW with the already-loaded listOrbs
-farmTab:AddDropdown("🔮  Select Orb", listOrbs, function(v)
-    selectedOrbs = type(v) == "table" and v or {v}
+-- Orb dropdown — hardcoded real names from game source
+local selectedOrb = "Orange Orb"
+farmTab:AddDropdown("🔮  Select Orb", ORB_LIST, function(v)
+    selectedOrb = v
+    notify("SCP","🔮 Selected: "..tostring(v),2)
 end)
 
-farmTab:AddButton("✅  Select ALL Orbs", function()
-    selectedOrbs = {}
-    for _,v in pairs(listOrbs) do table.insert(selectedOrbs, v) end
-    notify("SCP","✅ All "..#selectedOrbs.." orbs selected!",3)
-end)
-farmTab:AddButton("❌  Deselect All", function()
-    selectedOrbs = {}
-    notify("SCP","Orbs deselected",2)
-end)
+local farmMult = 50
+farmTab:AddSlider("⚡  Farm Multiplier", {min=1,max=200,default=50}, function(v) farmMult = v end)
 
-local farmMult = 20
-farmTab:AddSlider("⚡  Farm Multiplier", {min=1,max=100,default=20}, function(v) farmMult = v end)
-
-local autoFarm   = false
-local farmCount  = 0
-local farmStatLbl = farmTab:AddLabel("Orbs collected this session: 0")
-
+local autoFarm = false
+local farmCount = 0
+local farmLbl = farmTab:AddLabel("Orbs collected: 0")
 farmTab:AddSwitch("🌀  Auto Farm", function(v)
     autoFarm = v
-    if v and #selectedOrbs == 0 then
-        for _,orb in pairs(listOrbs) do table.insert(selectedOrbs, orb) end
-        notify("SCP","✅ Auto Farm ON — all orbs selected",3)
-    else
-        notify("SCP", v and "✅ Auto Farm ON" or "❌ Auto Farm OFF", 2)
-    end
+    notify("SCP", v and "✅ Auto Farm ON" or "❌ Auto Farm OFF", 2)
 end)
 task.spawn(function()
     while task.wait() do pcall(function()
         if autoFarm then
-            for _,orb in pairs(selectedOrbs) do
-                for i=1,farmMult do
-                    CollectOrb(orb)
-                    farmCount += 1
+            for i=1,farmMult do
+                orbEvent:FireServer("collectOrb", selectedOrb, "City")
+                farmCount += 1
+            end
+            farmLbl.Text = "Orbs collected: "..farmCount
+        end
+    end) end
+end)
+
+farmTab:AddLabel("━━━━━━━  ♾️  INFINITE ORB (ALL)  ━━━━━━━")
+farmTab:AddLabel("Farms ALL orb types at max speed")
+local infiniteOrb = false
+farmTab:AddSwitch("♾️  Infinite Orb", function(v)
+    infiniteOrb = v
+    notify("SCP", v and "✅ Infinite Orb ON" or "❌ Infinite Orb OFF", 2)
+end)
+task.spawn(function()
+    while task.wait() do pcall(function()
+        if infiniteOrb then
+            for i=1,1000 do
+                for _,orb in ipairs(ORB_LIST) do
+                    orbEvent:FireServer("collectOrb", orb, "City")
                 end
             end
-            farmStatLbl.Text = "Orbs collected this session: "..farmCount
         end
     end) end
 end)
 
 farmTab:AddLabel("━━━━━━━  🏇  AUTO HOOPS  ━━━━━━━")
 local autoHoops = false
+local hoopConn = nil
 farmTab:AddSwitch("🏇  Auto Hoops", function(v)
     autoHoops = v
-    notify("SCP", v and "✅ Auto Hoops ON" or "❌ Auto Hoops OFF", 2)
-end)
-task.spawn(function()
-    while task.wait() do pcall(function()
-        if autoHoops then
-            local hf = workspace:FindFirstChild("Hoops")
-            if hf then
-                for _,v in pairs(hf:GetChildren()) do
-                    pcall(function() firetouchinterest(HRP,v,0); firetouchinterest(HRP,v,1) end)
+    if v then
+        hoopConn = RunSvc.RenderStepped:Connect(function()
+            pcall(function()
+                for _,hoop in pairs(workspace.Hoops:GetChildren()) do
+                    if hoop.Name == "Hoop" then
+                        hoop.CFrame = HRP.CFrame
+                    end
                 end
-            end
-        end
-    end) end
+            end)
+        end)
+        notify("SCP","✅ Auto Hoops ON",2)
+    else
+        if hoopConn then hoopConn:Disconnect(); hoopConn = nil end
+        notify("SCP","❌ Auto Hoops OFF",2)
+    end
 end)
 
 farmTab:AddLabel("━━━━━━━  🔄  AUTO REBIRTH  ━━━━━━━")
@@ -334,20 +283,8 @@ farmTab:AddSwitch("🔄  Auto Rebirth", function(v)
     notify("SCP", v and "✅ Auto Rebirth ON" or "❌ Auto Rebirth OFF", 2)
 end)
 task.spawn(function()
-    while task.wait(0.5) do pcall(function()
-        if autoRebirth then DoRebirth() end
-    end) end
-end)
-
-farmTab:AddLabel("━━━━━━━  🎁  AUTO GIFTS  ━━━━━━━")
-local autoGifts = false
-farmTab:AddSwitch("🎁  Auto Claim Gifts", function(v)
-    autoGifts = v
-    notify("SCP", v and "✅ Auto Gifts ON" or "❌ Auto Gifts OFF", 2)
-end)
-task.spawn(function()
-    while task.wait() do pcall(function()
-        if autoGifts then ClaimGift(getHighestGift() + 1) end
+    while task.wait(0.1) do pcall(function()
+        if autoRebirth then rebirthEvent:FireServer("rebirthRequest") end
     end) end
 end)
 
@@ -357,41 +294,84 @@ farmTab:AddSwitch("🏁  Auto Race Win", function(v)
     autoRace = v
     notify("SCP", v and "✅ Auto Race ON" or "❌ Auto Race OFF", 2)
 end)
-pcall(function()
-    RS:WaitForChild("raceInProgress").Changed:Connect(function(state)
-        if autoRace and state then
-            pcall(function() raceEvent:FireServer("joinRace") end)
-            pcall(function() LP.PlayerGui.gameGui.raceJoinLabel.Visible = false end)
-        end
-    end)
-    RS:WaitForChild("raceStarted").Changed:Connect(function(state)
-        if autoRace and state then
-            for _,map in pairs(workspace:WaitForChild("raceMaps"):GetChildren()) do
-                if map:FindFirstChild("finishPart") then
-                    local fp  = map.finishPart
-                    local old = fp.CFrame
-                    fp.CFrame = HRP.CFrame
-                    task.wait()
-                    fp.CFrame = old
+task.spawn(function()
+    while task.wait() do pcall(function()
+        if autoRace then
+            if LP.PlayerGui.gameGui.raceJoinLabel.Visible then
+                raceEvent:FireServer("joinRace")
+            end
+            for _,map in pairs(workspace.raceMaps:GetChildren()) do
+                if LP.currentMap.Value == map.mapValue.Value then
+                    repeat task.wait() until LP.PlayerGui.gameGui.countdownLabels.goLabel.Visible
+                    HRP.CFrame = map.finishPart.CFrame
                 end
             end
         end
-    end)
+    end) end
 end)
 
-farmTab:AddLabel("━━━━━━━  📦  CHESTS  ━━━━━━━")
-farmTab:AddButton("📦  Collect All Chests", function()
+-- ══════════════════════════════════════════
+--  MISC TAB
+-- ══════════════════════════════════════════
+local miscTab,_ = win:AddTab("🎁  Misc")
+miscTab:AddLabel("━━━━━━━  🎁  GIFTS & CODES  ━━━━━━━")
+
+miscTab:AddButton("🎁  Claim All Gifts", function()
+    for i=1,10 do
+        pcall(function() freeGiftRemote:InvokeServer("claimGift", i) end)
+    end
+    notify("SCP","🎁 All gifts claimed!",3)
+end)
+
+miscTab:AddButton("🎰  Spin Fortune Wheel", function()
+    pcall(function()
+        local chances = RS:WaitForChild("fortuneWheelChances"):WaitForChild("Fortune Wheel")
+        fortuneWheelRemote:InvokeServer("openFortuneWheel", chances)
+    end)
+    notify("SCP","🎰 Fortune wheel spun!",3)
+end)
+
+miscTab:AddButton("🎟️  Redeem All Codes", function()
+    local success = 0
+    for _,code in ipairs(CODES) do
+        local ok = pcall(function() codeRemote:InvokeServer(code) end)
+        if ok then success += 1 end
+    end
+    notify("SCP","🎟️ Codes redeemed: "..success.."/"..#CODES,4)
+end)
+
+miscTab:AddLabel("━━━━━━━  📦  CHESTS  ━━━━━━━")
+miscTab:AddButton("📦  Collect All Chests", function()
     local n = 0
     for _,v in pairs(workspace:GetChildren()) do
         if v.Name:find("Chest") and v:FindFirstChild("circleInner") then
             pcall(function()
-                firetouchinterest(HRP,v.circleInner,0)
-                firetouchinterest(HRP,v.circleInner,1)
+                firetouchinterest(HRP, v.circleInner, 0)
+                firetouchinterest(HRP, v.circleInner, 1)
                 n += 1
             end)
         end
     end
     notify("SCP","📦 Collected "..n.." chests!",3)
+end)
+
+miscTab:AddLabel("━━━━━━━  😈  FUN  ━━━━━━━")
+local tradeConn = nil
+miscTab:AddSwitch("😈  Trade Everyone (Annoy)", function(v)
+    if v then
+        tradeConn = RunSvc.Heartbeat:Connect(function()
+            for _,p in ipairs(Players:GetPlayers()) do
+                if p ~= LP then
+                    pcall(function() tradingEvent:FireServer("sendTradeRequest", p) end)
+                end
+            end
+        end)
+        notify("SCP","😈 Trade spam ON",2)
+    else
+        if tradeConn then tradeConn:Disconnect(); tradeConn = nil end
+        pcall(function() tradingEvent:FireServer("cancelTrade") end)
+        notify("SCP","Trade spam OFF",2)
+    end
 end)
 
 -- ══════════════════════════════════════════
@@ -400,7 +380,7 @@ end)
 local plrTab,_ = win:AddTab("🏃  Player")
 plrTab:AddLabel("━━━━━━━  ⚡  SPEED  ━━━━━━━")
 local speedVal = 300
-plrTab:AddSlider("Speed Value", {min=16,max=5000,default=300}, function(v) speedVal = v end)
+plrTab:AddSlider("Speed Value", {min=16,max=1000,default=300}, function(v) speedVal = v end)
 local speedOn = false
 plrTab:AddSwitch("⚡  Speed Hack", function(v)
     speedOn = v
@@ -415,7 +395,7 @@ end)
 
 plrTab:AddLabel("━━━━━━━  🦘  JUMP  ━━━━━━━")
 local jumpVal = 100
-plrTab:AddSlider("Jump Value", {min=50,max=1000,default=100}, function(v) jumpVal = v end)
+plrTab:AddSlider("Jump Value", {min=0,max=1500,default=100}, function(v) jumpVal = v end)
 local jumpOn = false
 plrTab:AddSwitch("🦘  Jump Power", function(v)
     jumpOn = v
@@ -439,19 +419,35 @@ UIS.JumpRequest:Connect(function()
     end
 end)
 
+plrTab:AddLabel("━━━━━━━  🖥️  FPS  ━━━━━━━")
+plrTab:AddSlider("FPS Cap", {min=30,max=240,default=60}, function(v)
+    pcall(function() setfpscap(v) end)
+end)
+
 plrTab:AddLabel("━━━━━━━  👻  MISC  ━━━━━━━")
 local noclip = false
+local noclipConn = nil
 plrTab:AddSwitch("👻  Noclip", function(v)
     noclip = v
-    notify("SCP", v and "✅ Noclip ON" or "❌ Noclip OFF", 2)
-end)
-RunSvc.Stepped:Connect(function()
-    if noclip and Char then
-        for _,p in pairs(Char:GetDescendants()) do
-            if p:IsA("BasePart") then p.CanCollide = false end
+    if v then
+        noclipConn = RunSvc.Stepped:Connect(function()
+            if Char then
+                for _,p in pairs(Char:GetDescendants()) do
+                    if p:IsA("BasePart") then p.CanCollide = false end
+                end
+            end
+        end)
+    else
+        if noclipConn then noclipConn:Disconnect(); noclipConn = nil end
+        if Char then
+            for _,p in pairs(Char:GetDescendants()) do
+                if p:IsA("BasePart") then p.CanCollide = true end
+            end
         end
     end
+    notify("SCP", v and "✅ Noclip ON" or "❌ Noclip OFF", 2)
 end)
+
 plrTab:AddButton("🔄  Reset Character", function()
     LP:LoadCharacter()
     notify("SCP","🔄 Character reset!",2)
@@ -461,20 +457,21 @@ end)
 --  TELEPORT TAB
 -- ══════════════════════════════════════════
 local tpTab,_ = win:AddTab("🗺️  Teleport")
-tpTab:AddLabel("━━━━━━━  📍  AREA TELEPORT  ━━━━━━━")
-local selPlace = nil
-tpTab:AddDropdown("📍  Select Area", listPlaces, function(v) selPlace = v end)
-tpTab:AddButton("🚀  Teleport to Area", function()
-    if selPlace then TravelToArea(selPlace); notify("SCP","🚀 Teleporting to "..selPlace,3)
-    else notify("SCP","❌ Select an area first!",3) end
-end)
+tpTab:AddLabel("━━━━━━━  📍  LOCATIONS  ━━━━━━━")
 
-tpTab:AddLabel("━━━━━━━  🌍  WORLD TELEPORT  ━━━━━━━")
-tpTab:AddButton("🏙️  City",   function() TeleSvc:Teleport(3101667897,LP); notify("SCP","🏙️ Going to City...",3) end)
-tpTab:AddButton("🌌  Space",  function() TeleSvc:Teleport(3232996272,LP); notify("SCP","🌌 Going to Space...",3) end)
-tpTab:AddButton("🏜️  Desert", function() TeleSvc:Teleport(3276265788,LP); notify("SCP","🏜️ Going to Desert...",3) end)
+for _,tp in ipairs(TELEPORTS) do
+    local cf = tp.cframe
+    tpTab:AddButton("📍  "..tp.name, function()
+        pcall(function() HRP.CFrame = cf end)
+        notify("SCP","📍 "..tp.name,2)
+    end)
+end
 
 tpTab:AddLabel("━━━━━━━  👤  PLAYER TELEPORT  ━━━━━━━")
+local playerNames = {}
+for _,p in pairs(Players:GetPlayers()) do
+    if p ~= LP then table.insert(playerNames, p.Name) end
+end
 local selPlayer = nil
 tpTab:AddDropdown("👤  Select Player", playerNames, function(v) selPlayer = v end)
 tpTab:AddButton("🚀  Teleport to Player", function()
@@ -486,6 +483,11 @@ tpTab:AddButton("🚀  Teleport to Player", function()
         else notify("SCP","❌ Player not available!",3) end
     else notify("SCP","❌ Select a player first!",3) end
 end)
+
+tpTab:AddLabel("━━━━━━━  🌍  WORLD SERVERS  ━━━━━━━")
+tpTab:AddButton("🏙️  City World",   function() TeleSvc:Teleport(3101667897,LP) end)
+tpTab:AddButton("🌌  Space World",  function() TeleSvc:Teleport(3232996272,LP) end)
+tpTab:AddButton("🏜️  Desert World", function() TeleSvc:Teleport(3276265788,LP) end)
 
 -- ══════════════════════════════════════════
 --  SERVER TAB
@@ -499,9 +501,7 @@ srvTab:AddButton("📋  Copy Job ID", function()
     setclipboard(game.JobId); notify("SCP","✅ Job ID Copied!",3)
 end)
 srvTab:AddLabel("━━━━━━━  🔀  SERVER HOP  ━━━━━━━")
-srvTab:AddButton("🔄  Rejoin", function()
-    TeleSvc:Teleport(game.PlaceId, LP)
-end)
+srvTab:AddButton("🔄  Rejoin", function() TeleSvc:Teleport(game.PlaceId, LP) end)
 srvTab:AddButton("🔀  Hop Server", function()
     notify("SCP","🔀 Finding new server...",2)
     task.spawn(function()
