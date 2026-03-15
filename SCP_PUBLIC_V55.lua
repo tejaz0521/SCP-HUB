@@ -1,5 +1,5 @@
 -- ⚡ SCP HUB | MUSCLE LEGENDS V5 | Made by TEJAZ
--- Library: SilenceElerium by imhenne187
+-- cry
 
 -- Reuse library from selector if available, else load fresh
 local library
