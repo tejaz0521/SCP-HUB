@@ -54,16 +54,6 @@ selTab:AddButton("Load Race Clicker Script", function()
     end)
 end)
 
-selTab:AddLabel("--- LEGENDS OF SPEED ---")
-selTab:AddButton("Load Legends of Speed Script", function()
-    notify("SCP HUB","Loading Legends of Speed...",2)
-    task.spawn(function()
-        pcall(function() winF.Visible=false end)
-        local ok,err=pcall(function() loadstring(game:HttpGet(BASE.."SCP_LEGENDSOFSPEED.lua",true))() end)
-        if not ok then notify("SCP HUB","Error: "..tostring(err):sub(1,50),5) end
-    end)
-end)
-
 selTab:AddLabel("--- LINKS ---")
 selTab:AddButton("Copy Discord Link", function()
     setclipboard("https://discord.gg/KDx3D8hARN")
