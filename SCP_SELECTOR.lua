@@ -33,14 +33,6 @@ selTab:AddButton("Load Muscle Legends - Free Script", function()
         if not ok then notify("SCP HUB","Error: "..tostring(err):sub(1,50),5) end
     end)
 end)
-selTab:AddButton("Load Muscle Master - Free Script", function()
-    notify("SCP HUB","Loading Muscle Master...",2)
-    task.spawn(function()
-        pcall(function() winF.Visible=false end)
-        local ok,err=pcall(function() loadstring(game:HttpGet(BASE.."SCP_MUSCLEMASTER.lua",true))() end)
-        if not ok then notify("SCP HUB","Error: "..tostring(err):sub(1,50),5) end
-    end)
-end)
 
 selTab:AddLabel("--- RIVALS ---")
 selTab:AddButton("Load Rivals Script", function()
