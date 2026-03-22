@@ -29,7 +29,7 @@ selTab:AddButton("Load Muscle Legends - Free Script", function()
     notify("SCP HUB","Loading Muscle Legends...",2)
     task.spawn(function()
         pcall(function() winF.Visible=false end)
-        local ok,err=pcall(function() loadstring(game:HttpGet(BASE.."SCP_PUBLIC_V5.lua",true))() end)
+        local ok,err=pcall(function() loadstring(game:HttpGet(BASE.."SCP_PUBLIC_V5.lua(23).txt",true))() end)
         if not ok then notify("SCP HUB","Error: "..tostring(err):sub(1,50),5) end
     end)
 end)
