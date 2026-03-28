@@ -64,11 +64,7 @@ selTab:AddButton("Load Legends of Speed Script", function()
     end)
 end)
 
-selTab:AddLabel("--- LINKS ---")
-selTab:AddButton("Copy Discord Link", function()
-    setclipboard("https://discord.gg/KDx3D8hARN")
-    notify("SCP HUB","Discord copied!",3)
-end)
+
 selTab:AddLabel("--- BLOX FRUITS ---")
 selTab:AddButton("Load Blox Fruits Script", function()
     notify("SCP HUB","Loading Blox Fruits...",2)
@@ -78,6 +74,13 @@ selTab:AddButton("Load Blox Fruits Script", function()
         if not ok then notify("SCP HUB","Error: "..tostring(err):sub(1,50),5) end
     end)
 end)
+
+selTab:AddLabel("--- LINKS ---")
+selTab:AddButton("Copy Discord Link", function()
+    setclipboard("https://discord.gg/KDx3D8hARN")
+    notify("SCP HUB","Discord copied!",3)
+end)
+
 
 selTab:Show()
 notify("SCP HUB","All ready! Choose your game | Made by TEJAZ",4)
